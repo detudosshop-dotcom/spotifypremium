@@ -56,7 +56,24 @@ async function handler(req, res) {
   let telefone = (body.telefone || body.phone || '11999998888').replace(/\D/g, '');
   if (telefone.length < 10) telefone = '11999998888';
 
-  const amount = parseInt(body.amount) || 999;
+  let rawAmount = body.amount;
+  let amount = 999;
+  if (rawAmount !== undefined && rawAmount !== null) {
+    const s = String(rawAmount).trim();
+    if (s.includes(',') || s.includes('.')) {
+      const f = parseFloat(s.replace(',', '.'));
+      if (!isNaN(f) && f > 0) amount = Math.round(f * 100);
+    } else {
+      const p = parseInt(s, 10);
+      if (!isNaN(p)) {
+        if (p >= 100) amount = p;
+        else if (p === 9) amount = 999;
+        else if (p === 19 || p === 20) amount = 1990;
+        else if (p > 0) amount = Math.round(p * 100);
+      }
+    }
+  }
+  if (!amount || amount < 100) amount = 999;
   const produtoNome = body.produto || 'Prioridade Premium';
 
   const payload = JSON.stringify({

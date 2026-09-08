@@ -59,28 +59,16 @@ function requestHandler(req, res) {
     return;
   }
 
-  // 1. Se for diretório, garante barra final via 301 redirect para que o navegador resolva links relativos corretamente
+  // 1. Se for diretório, serve index.html diretamente
   if (fs.existsSync(safePath) && fs.statSync(safePath).isDirectory()) {
-    if (!pathname.endsWith('/')) {
-      const search = parsedUrl.search || '';
-      res.writeHead(301, { 'Location': `${pathname}/${search}` });
-      res.end();
-      return;
-    }
     safePath = path.join(safePath, 'index.html');
   } else if (!fs.existsSync(safePath)) {
     // 2. Tenta safePath + '.html'
     if (fs.existsSync(safePath + '.html') && fs.statSync(safePath + '.html').isFile()) {
       safePath = safePath + '.html';
     } 
-    // 3. Tenta safePath/index.html com redirect se faltar barra final
+    // 3. Tenta safePath/index.html
     else if (fs.existsSync(path.join(safePath, 'index.html'))) {
-      if (!pathname.endsWith('/')) {
-        const search = parsedUrl.search || '';
-        res.writeHead(301, { 'Location': `${pathname}/${search}` });
-        res.end();
-        return;
-      }
       safePath = path.join(safePath, 'index.html');
     }
     // 4. Fallback para arquivos de checkout chamados na raiz (ex: /pix.html, /confirmar.html, /loading.html, /obrigado.html)
