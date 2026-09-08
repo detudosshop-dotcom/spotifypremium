@@ -4,7 +4,8 @@
   "description": "Clone completo do funil Spotify Avaliador",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "push": "git add -A && git commit -m \"Atualizacao do projeto\" && git push origin main"
   },
   "keywords": [],
   "author": "",
