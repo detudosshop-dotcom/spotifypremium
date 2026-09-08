@@ -25,9 +25,10 @@ const MIME_TYPES = {
 function requestHandler(req, res) {
   const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
   let pathname = decodeURIComponent(parsedUrl.pathname);
+  const cleanPath = pathname.replace(/\/+$/, '') || '/';
 
   // Handle API routes
-  if (pathname === '/api/create-payment') {
+  if (cleanPath === '/api/create-payment') {
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', () => {
@@ -36,11 +37,11 @@ function requestHandler(req, res) {
     });
     return;
   }
-  if (pathname === '/api/check-status') {
+  if (cleanPath === '/api/check-status') {
     require('./api/check-status.js')(req, res);
     return;
   }
-  if (pathname === '/api/webhook') {
+  if (cleanPath === '/api/webhook') {
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', () => {

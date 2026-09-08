@@ -65,7 +65,14 @@ async function criarTransacao(dados) {
             body: JSON.stringify(payload)
         });
 
-        const json = await resp.json();
+        const rawText = await resp.text();
+        let json;
+        try {
+            json = JSON.parse(rawText);
+        } catch (e) {
+            console.error('Resposta não-JSON no upsell:', rawText);
+            return { success: false, error: 'Erro de comunicação com o servidor (' + resp.status + ')' };
+        }
         return json;
     } catch (e) {
         return { success: false, error: 'Falha na conexão com o servidor' };

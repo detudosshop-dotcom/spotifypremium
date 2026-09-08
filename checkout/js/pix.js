@@ -135,7 +135,13 @@ function iniciarPolling(id) {
 async function verificarStatusNaApi(id, exibirFeedbackManual = false) {
     try {
         const res = await fetch(`/api/check-status?id=${encodeURIComponent(id)}`);
-        const data = await res.json();
+        const rawText = await res.text();
+        let data;
+        try {
+            data = JSON.parse(rawText);
+        } catch(e) {
+            return;
+        }
 
         if (data.success && data.paid) {
             clearInterval(pollingInterval);

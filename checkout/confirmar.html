@@ -484,11 +484,18 @@ document.addEventListener("DOMContentLoaded",()=>{
         body: JSON.stringify(payload)
       });
       
-      const data = await response.json();
+      const rawText = await response.text();
+      let data;
+      try {
+        data = JSON.parse(rawText);
+      } catch (e) {
+        console.error('Resposta não-JSON da API:', rawText);
+        return { success: false, error: 'Erro de comunicação com o servidor (' + response.status + ')' };
+      }
       return data;
     } catch (error) {
       console.error('Erro na API:', error);
-      return { success: false, error: error.message };
+      return { success: false, error: error.message || 'Erro de conexão' };
     }
   }
 
