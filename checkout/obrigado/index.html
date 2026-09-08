@@ -308,12 +308,22 @@
                 return JSON.parse(dadosCliente);
             }
             return {};
-        }
-
-        // Constrói URL de redirecionamento com UTMs e dados do cliente
+              // Constrói URL de redirecionamento com UTMs e dados do cliente
         function buildRedirectUrl() {
             const params = new URLSearchParams(window.location.search);
             const dadosCliente = getDadosCliente();
+            
+            // Se for o pagamento do Upsell 1, redireciona para a conclusão final
+            const isUp1 = params.get('tipo') === 'up1' ||
+                          params.get('upsell') === '1' ||
+                          params.get('valor') === '19,90' ||
+                          params.get('valor') === '19.90';
+            if (isUp1) {
+                const baseUrl = '/checkout/conclusao.html';
+                const queryString = params.toString();
+                return queryString ? (baseUrl + "?" + queryString) : baseUrl;
+            }
+
             const baseUrl = '/up1/';
             
             if (!params.get('nome') && dadosCliente.nome) params.append('nome', dadosCliente.nome);

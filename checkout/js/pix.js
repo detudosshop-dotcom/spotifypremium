@@ -380,7 +380,19 @@ function irParaConfirmacao() {
     const params = new URLSearchParams(window.location.search);
     if (estadoPix.transacaoId) params.set('transacao_id', estadoPix.transacaoId);
     
-    window.location.href = '/checkout/obrigado.html?' + params.toString();
+    // Verificar se é o pagamento do Upsell 1 (taxa de R$ 19,90)
+    const isUp1 = params.get('tipo') === 'up1' ||
+                  params.get('upsell') === '1' ||
+                  params.get('valor') === '19,90' ||
+                  params.get('valor') === '19.90' ||
+                  estadoPix.amount === 1990 ||
+                  localStorage.getItem('pix_valor') === '19,90';
+
+    if (isUp1) {
+        window.location.href = '/checkout/conclusao.html?' + params.toString();
+    } else {
+        window.location.href = '/checkout/obrigado.html?' + params.toString();
+    }
 }
 
 function mostrarErro(mensagem) {
