@@ -1,4 +1,4 @@
-// Webhook para receber notificações da SpeedPag e repassar à UTMify
+// Webhook para receber notificações da FreePay Brasil e repassar à UTMify
 const { sendUtmifyOrder } = require('./utmify');
 
 async function handler(req, res) {
@@ -21,29 +21,41 @@ async function handler(req, res) {
     }
   }
 
-  console.log('[Webhook SpeedPag] Event received:', JSON.stringify(body).slice(0, 300));
+  console.log('[Webhook FreePay] Event received:', JSON.stringify(body).slice(0, 300));
 
   const transaction = body.data || body;
-  const status = transaction.status;
-  const id = transaction.id;
+  const id = transaction.Id || transaction.id;
+  const rawStatus = (transaction.Status || transaction.status || '').toString();
+  const upperStatus = rawStatus.toUpperCase();
+  const isPaid = upperStatus === 'PAID' || upperStatus === 'APPROVED' || upperStatus === 'COMPLETED';
 
-  if (id && (status === 'paid' || status === 'approved' || status === 'completed')) {
+  if (id && isPaid) {
     try {
+      let rawAmount = transaction.Amount !== undefined ? transaction.Amount : transaction.amount;
+      let amountInCents = typeof rawAmount === 'number' ? (rawAmount < 100 ? Math.round(rawAmount * 100) : rawAmount) : 999;
+      const rawPaidAt = transaction.PaidAt || transaction.paidAt || transaction.paid_at;
+      const paidDate = (rawPaidAt && !rawPaidAt.startsWith('0001')) 
+        ? rawPaidAt.replace('T', ' ').substring(0, 19) 
+        : null;
+
+      const customer = transaction.Customer || transaction.customer || {};
+      const document = customer.Document || customer.document || {};
+
       await sendUtmifyOrder({
         orderId: id,
         status: 'paid',
-        amount: transaction.amount || 999,
+        amount: amountInCents,
         customer: {
-          name: transaction.customer?.name,
-          email: transaction.customer?.email,
-          phone: transaction.customer?.phone,
-          document: transaction.customer?.document?.number
+          name: customer.Name || customer.name,
+          email: customer.Email || customer.email,
+          phone: customer.Phone || customer.phone,
+          document: document.Number || document.number || (typeof document === 'string' ? document : null)
         },
-        approvedDate: transaction.paidAt ? transaction.paidAt.replace('T', ' ').substring(0, 19) : null
+        approvedDate: paidDate
       });
-      console.log(`[Webhook SpeedPag] Notified UTMify for transaction ${id} (paid)`);
+      console.log(`[Webhook FreePay] Notified UTMify for transaction ${id} (paid)`);
     } catch (err) {
-      console.error('[Webhook SpeedPag] Error notifying UTMify:', err.message);
+      console.error('[Webhook FreePay] Error notifying UTMify:', err.message);
     }
   }
 

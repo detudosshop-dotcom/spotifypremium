@@ -1,6 +1,6 @@
 // ==========================================
 // PÁGINA PIX - SPOTIFY CHECKOUT
-// Integração SpeedPag + UTMify
+// Integração FreePay Brasil + UTMify
 // Idêntico ao modelo de referência sptagora.shop
 // ==========================================
 

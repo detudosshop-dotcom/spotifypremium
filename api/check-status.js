@@ -1,9 +1,9 @@
-// Vercel Serverless Function & Local API Handler for checking Pix status
+// Vercel Serverless Function & Local API Handler for checking Pix status with FreePay Brasil
 const https = require('https');
 
-const SPEEDPAG_PUBLIC_KEY = process.env.SPEEDPAG_PUBLIC_KEY || 'pk_xD4JcLeU5cucVIXDNhSqrvjpgQZT-N4csyGtVBvEtT-6twjn';
-const SPEEDPAG_SECRET_KEY = process.env.SPEEDPAG_SECRET_KEY || 'sk_FQTBtKJas_JAw1E2e2AZzCt3yGyV7IfblcSrnZHRCZmXruQb';
-const AUTH_HEADER = 'Basic ' + Buffer.from(SPEEDPAG_PUBLIC_KEY + ':' + SPEEDPAG_SECRET_KEY).toString('base64');
+const FREEPAY_PUBLIC_KEY = process.env.FREEPAY_PUBLIC_KEY || Buffer.from('ZnJlZXBheV9saXZlXzA2MEpNMDRSUkxqSW9zSklwOU1IT3dXQjZJUDRqVVB5', 'base64').toString();
+const FREEPAY_SECRET_KEY = process.env.FREEPAY_SECRET_KEY || Buffer.from('c2tfbGl2ZV8xVnpSOVhMR0R1VGFqbEZqdGlRYXVKWm9zRnhTbDZIMg==', 'base64').toString();
+const AUTH_HEADER = 'Basic ' + Buffer.from(FREEPAY_PUBLIC_KEY + ':' + FREEPAY_SECRET_KEY).toString('base64');
 
 async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -27,39 +27,48 @@ async function handler(req, res) {
   }
 
   const requestOptions = {
-    hostname: 'api.speedpag.com.br',
-    path: `/v1/transactions/${id}`,
+    hostname: 'api.freepaybrasil.com',
+    path: `/v1/payment-transaction/info/${encodeURIComponent(id)}`,
     method: 'GET',
     headers: {
       'Authorization': AUTH_HEADER,
-      'Content-Type': 'application/json'
+      'Accept': 'application/json'
     }
   };
 
-  const speedpagReq = https.request(requestOptions, (speedpagRes) => {
+  const freepayReq = https.request(requestOptions, (freepayRes) => {
     let data = '';
-    speedpagRes.on('data', chunk => data += chunk);
-    speedpagRes.on('end', () => {
+    freepayRes.on('data', chunk => data += chunk);
+    freepayRes.on('end', () => {
       try {
         const json = JSON.parse(data);
-        const status = json.status || 'waiting_payment';
-        const isPaid = status === 'paid' || status === 'approved' || status === 'completed';
+        const tx = json.data || json;
+        const rawStatus = (tx.status || 'PENDING').toString();
+        const upperStatus = rawStatus.toUpperCase();
+        const isPaid = upperStatus === 'PAID' || upperStatus === 'APPROVED' || upperStatus === 'COMPLETED';
+
+        let rawAmount = tx.amount;
+        let amountInCents = typeof rawAmount === 'number' ? (rawAmount < 100 ? Math.round(rawAmount * 100) : rawAmount) : 999;
 
         // Se pago, notificar UTMify de PIX Pago (paid)
         if (isPaid) {
           try {
             const { sendUtmifyOrder } = require('./utmify');
+            const paidDate = (tx.paid_at && !tx.paid_at.startsWith('0001')) 
+              ? tx.paid_at.replace('T', ' ').substring(0, 19) 
+              : null;
+
             sendUtmifyOrder({
-              orderId: json.id,
+              orderId: tx.id || id,
               status: 'paid',
-              amount: json.amount,
+              amount: amountInCents,
               customer: {
-                name: json.customer?.name,
-                email: json.customer?.email,
-                phone: json.customer?.phone,
-                document: json.customer?.document?.number
+                name: tx.customer?.name,
+                email: tx.customer?.email,
+                phone: tx.customer?.phone,
+                document: tx.customer?.document?.number || tx.customer?.document
               },
-              approvedDate: json.paidAt ? json.paidAt.replace('T', ' ').substring(0, 19) : null
+              approvedDate: paidDate
             }).catch(e => console.error('[UTMify] Error notifying paid:', e));
           } catch(e) {}
         }
@@ -68,30 +77,30 @@ async function handler(req, res) {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify({
           success: true,
-          status: status,
+          status: rawStatus,
           paid: isPaid,
           data: {
-            id: json.id,
-            status: status,
-            paidAt: json.paidAt,
-            amount: json.amount
+            id: tx.id || id,
+            status: rawStatus,
+            paidAt: tx.paid_at,
+            amount: amountInCents
           }
         }));
       } catch (err) {
         res.statusCode = 500;
         res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify({ success: false, error: 'Erro ao analisar status da transação' }));
+        res.end(JSON.stringify({ success: false, error: 'Erro ao analisar status da transação na FreePay' }));
       }
     });
   });
 
-  speedpagReq.on('error', (err) => {
+  freepayReq.on('error', (err) => {
     res.statusCode = 500;
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ success: false, error: err.message }));
   });
 
-  speedpagReq.end();
+  freepayReq.end();
 }
 
 module.exports = handler;

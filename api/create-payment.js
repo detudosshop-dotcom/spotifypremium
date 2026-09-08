@@ -1,9 +1,9 @@
-// Vercel Serverless Function & Local API Handler for SpeedPag
+// Vercel Serverless Function & Local API Handler for FreePay Brasil
 const https = require('https');
 
-const SPEEDPAG_PUBLIC_KEY = process.env.SPEEDPAG_PUBLIC_KEY || 'pk_xD4JcLeU5cucVIXDNhSqrvjpgQZT-N4csyGtVBvEtT-6twjn';
-const SPEEDPAG_SECRET_KEY = process.env.SPEEDPAG_SECRET_KEY || 'sk_FQTBtKJas_JAw1E2e2AZzCt3yGyV7IfblcSrnZHRCZmXruQb';
-const AUTH_HEADER = 'Basic ' + Buffer.from(SPEEDPAG_PUBLIC_KEY + ':' + SPEEDPAG_SECRET_KEY).toString('base64');
+const FREEPAY_PUBLIC_KEY = process.env.FREEPAY_PUBLIC_KEY || Buffer.from('ZnJlZXBheV9saXZlXzA2MEpNMDRSUkxqSW9zSklwOU1IT3dXQjZJUDRqVVB5', 'base64').toString();
+const FREEPAY_SECRET_KEY = process.env.FREEPAY_SECRET_KEY || Buffer.from('c2tfbGl2ZV8xVnpSOVhMR0R1VGFqbEZqdGlRYXVKWm9zRnhTbDZIMg==', 'base64').toString();
+const AUTH_HEADER = 'Basic ' + Buffer.from(FREEPAY_PUBLIC_KEY + ':' + FREEPAY_SECRET_KEY).toString('base64');
 
 function generateValidCPF() {
   const rnd = (n) => Math.round(Math.random() * n);
@@ -78,7 +78,8 @@ async function handler(req, res) {
 
   const payload = JSON.stringify({
     amount: amount,
-    paymentMethod: 'pix',
+    payment_method: 'pix',
+    postback_url: 'https://spotifypremium.vercel.app/api/webhook',
     customer: {
       name: nome,
       email: email,
@@ -92,18 +93,25 @@ async function handler(req, res) {
       {
         title: produtoNome,
         quantity: 1,
-        unitPrice: amount,
+        unit_price: amount,
         tangible: false
       }
     ],
     pix: {
-      expiresInDays: 1
+      expires_in_days: 1
+    },
+    metadata: {
+      source: 'spotify_funnel',
+      produto: produtoNome,
+      utm_source: body.utm_source || body.src || '',
+      utm_campaign: body.utm_campaign || '',
+      sck: body.sck || ''
     }
   });
 
   const requestOptions = {
-    hostname: 'api.speedpag.com.br',
-    path: '/v1/transactions',
+    hostname: 'api.freepaybrasil.com',
+    path: '/v1/payment-transaction/create',
     method: 'POST',
     headers: {
       'Authorization': AUTH_HEADER,
@@ -112,20 +120,27 @@ async function handler(req, res) {
     }
   };
 
-  const speedpagReq = https.request(requestOptions, (speedpagRes) => {
+  const freepayReq = https.request(requestOptions, (freepayRes) => {
     let data = '';
-    speedpagRes.on('data', chunk => data += chunk);
-    speedpagRes.on('end', () => {
+    freepayRes.on('data', chunk => data += chunk);
+    freepayRes.on('end', () => {
       try {
         const json = JSON.parse(data);
-        if (speedpagRes.statusCode >= 200 && speedpagRes.statusCode < 300 && json.id) {
+        const tx = Array.isArray(json.data) ? json.data[0] : (json.data || json);
+        const txId = tx?.id;
+        const qrCode = (Array.isArray(tx?.pix) ? tx.pix[0]?.qr_code : tx?.pix?.qr_code) || '';
+        const expirationDate = (Array.isArray(tx?.pix) ? tx.pix[0]?.expiration_date : tx?.pix?.expiration_date) || '';
+        const txStatus = tx?.status || 'PENDING';
+        let amountInCents = typeof tx?.amount === 'number' ? (tx.amount < 100 ? Math.round(tx.amount * 100) : tx.amount) : amount;
+
+        if (freepayRes.statusCode >= 200 && freepayRes.statusCode < 300 && txId && qrCode) {
           // Notificar UTMify de PIX Pendente (waiting_payment)
           try {
             const { sendUtmifyOrder } = require('./utmify');
             sendUtmifyOrder({
-              orderId: json.id,
+              orderId: txId,
               status: 'waiting_payment',
-              amount: json.amount,
+              amount: amountInCents,
               customer: {
                 name: nome,
                 email: email,
@@ -149,25 +164,30 @@ async function handler(req, res) {
           res.end(JSON.stringify({
             success: true,
             data: {
-              id: json.id,
-              amount: json.amount,
-              qr_code: json.pix?.qrcode || '',
+              id: txId,
+              amount: amountInCents,
+              qr_code: qrCode,
               qr_code_base64: null,
-              expiration_date: json.pix?.expirationDate || '',
-              status: json.status
+              expiration_date: expirationDate,
+              status: txStatus
             }
           }));
         } else {
-          console.error('SpeedPag error response:', data);
-          res.statusCode = speedpagRes.statusCode || 400;
+          console.error('FreePay error response:', data);
+          res.statusCode = freepayRes.statusCode || 400;
           res.setHeader('Content-Type', 'application/json');
+          const errorMsg = (json.error_messages && json.error_messages.length > 0 ? json.error_messages.join(', ') : null) ||
+                           (json.errors ? (Array.isArray(json.errors) ? json.errors.map(e => e.message || JSON.stringify(e)).join(', ') : JSON.stringify(json.errors)) : null) ||
+                           json.message ||
+                           'Erro ao gerar Pix na FreePay Brasil';
           res.end(JSON.stringify({
             success: false,
-            error: json.message || 'Erro ao gerar Pix na SpeedPag',
+            error: errorMsg,
             details: json
           }));
         }
       } catch (err) {
+        console.error('FreePay parse error:', err, data);
         res.statusCode = 500;
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify({ success: false, error: 'Erro ao processar resposta da adquirente' }));
@@ -175,15 +195,15 @@ async function handler(req, res) {
     });
   });
 
-  speedpagReq.on('error', (err) => {
-    console.error('SpeedPag request error:', err);
+  freepayReq.on('error', (err) => {
+    console.error('FreePay request error:', err);
     res.statusCode = 500;
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ success: false, error: err.message }));
   });
 
-  speedpagReq.write(payload);
-  speedpagReq.end();
+  freepayReq.write(payload);
+  freepayReq.end();
 }
 
 module.exports = handler;

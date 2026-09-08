@@ -1,4 +1,4 @@
-// Gerador automático de PIX para o Upsell de R$ 19,90 usando SpeedPag
+// Gerador automático de PIX para o Upsell de R$ 19,90 usando FreePay Brasil
 document.addEventListener('DOMContentLoaded', async () => {
     activateStep(1);
     const dados = recuperarDados();
