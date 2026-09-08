@@ -27,22 +27,33 @@
 
 /* QR CODE CONTAINER */
 .qrcode-container {
-    background-color: white;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 20px;
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0;
+    margin: 0 auto 20px auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    width: 100%;
 }
 
 #qrcode {
     width: 200px;
     height: 200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#qrcode canvas {
-    border-radius: 8px;
+#qrcode canvas,
+#qrcode img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 12px;
+    width: 200px;
+    height: 200px;
 }
 
 /* CÓPIA E COLA */
