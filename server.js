@@ -26,6 +26,21 @@ function requestHandler(req, res) {
   const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
   let pathname = decodeURIComponent(parsedUrl.pathname);
 
+  // Handle API routes
+  if (pathname === '/api/create-payment') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      req.body = body;
+      require('./api/create-payment.js')(req, res);
+    });
+    return;
+  }
+  if (pathname === '/api/check-status') {
+    require('./api/check-status.js')(req, res);
+    return;
+  }
+
   let safePath = path.normalize(path.join(PUBLIC_DIR, pathname));
 
   if (!safePath.startsWith(PUBLIC_DIR)) {

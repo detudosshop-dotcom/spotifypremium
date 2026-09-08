@@ -10,11 +10,11 @@ const CONFIG = {
     // API DO WORKER
     // ==========================================
     API: {
-WORKER_URL: 'https://spotv3-imp.breno328907289.workers.dev',
+        WORKER_URL: '',
         ENDPOINTS: {
             CREATE_PAYMENT: '/api/create-payment',
             CHECK_STATUS: '/api/check-status',
-            WEBHOOK: '/webhook/imperium'
+            WEBHOOK: '/api/webhook'
         }
     },
 
