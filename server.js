@@ -40,6 +40,15 @@ function requestHandler(req, res) {
     require('./api/check-status.js')(req, res);
     return;
   }
+  if (pathname === '/api/webhook') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      req.body = body;
+      require('./api/webhook.js')(req, res);
+    });
+    return;
+  }
 
   let safePath = path.normalize(path.join(PUBLIC_DIR, pathname));
 

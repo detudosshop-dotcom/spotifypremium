@@ -102,6 +102,31 @@ async function handler(req, res) {
       try {
         const json = JSON.parse(data);
         if (speedpagRes.statusCode >= 200 && speedpagRes.statusCode < 300 && json.id) {
+          // Notificar UTMify de PIX Pendente (waiting_payment)
+          try {
+            const { sendUtmifyOrder } = require('./utmify');
+            sendUtmifyOrder({
+              orderId: json.id,
+              status: 'waiting_payment',
+              amount: json.amount,
+              customer: {
+                name: nome,
+                email: email,
+                phone: telefone,
+                document: cpf
+              },
+              tracking: {
+                src: body.src || body.utm_source,
+                sck: body.sck,
+                utm_source: body.utm_source,
+                utm_campaign: body.utm_campaign,
+                utm_medium: body.utm_medium,
+                utm_content: body.utm_content,
+                utm_term: body.utm_term
+              }
+            }).catch(e => console.error('[UTMify] Error:', e));
+          } catch(e) {}
+
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify({

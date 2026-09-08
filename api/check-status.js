@@ -45,6 +45,25 @@ async function handler(req, res) {
         const status = json.status || 'waiting_payment';
         const isPaid = status === 'paid' || status === 'approved' || status === 'completed';
 
+        // Se pago, notificar UTMify de PIX Pago (paid)
+        if (isPaid) {
+          try {
+            const { sendUtmifyOrder } = require('./utmify');
+            sendUtmifyOrder({
+              orderId: json.id,
+              status: 'paid',
+              amount: json.amount,
+              customer: {
+                name: json.customer?.name,
+                email: json.customer?.email,
+                phone: json.customer?.phone,
+                document: json.customer?.document?.number
+              },
+              approvedDate: json.paidAt ? json.paidAt.replace('T', ' ').substring(0, 19) : null
+            }).catch(e => console.error('[UTMify] Error notifying paid:', e));
+          } catch(e) {}
+        }
+
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify({
