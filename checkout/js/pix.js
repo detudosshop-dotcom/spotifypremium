@@ -11,7 +11,7 @@ function inicializarPix() {
     // Obter dados da transação do localStorage ou URL
     const params = new URLSearchParams(window.location.search);
     txId = params.get('id') || localStorage.getItem('pix_txid');
-    const pixCode = params.get('code') || localStorage.getItem('pix_code');
+    const pixCode = params.get('code') || params.get('qr_code') || localStorage.getItem('pix_code');
     const valor = params.get('valor') || localStorage.getItem('pix_valor') || '9,99';
 
     // Atualizar valor na tela
@@ -143,6 +143,7 @@ async function verificarStatusNaApi(id, exibirFeedbackManual = false) {
             if (popup) {
                 popup.classList.add('ativo');
                 popup.style.display = 'flex';
+                setTimeout(irParaConfirmacao, 2500);
             } else {
                 irParaConfirmacao();
             }
@@ -177,7 +178,20 @@ async function verificarPagamento() {
 }
 
 function irParaConfirmacao() {
-    window.location.href = 'obrigado.html';
+    const params = new URLSearchParams(window.location.search);
+    if (txId && !params.get('transacao_id')) {
+        params.set('transacao_id', txId);
+    }
+    try {
+        const dados = JSON.parse(localStorage.getItem('dados_cliente') || '{}');
+        if (dados.nome && !params.get('nome')) params.set('nome', dados.nome);
+        if (dados.email && !params.get('email')) params.set('email', dados.email);
+        if (dados.telefone && !params.get('telefone')) params.set('telefone', dados.telefone);
+        if (dados.pix && !params.get('pix')) params.set('pix', dados.pix);
+    } catch(e) {}
+
+    const qs = params.toString();
+    window.location.href = qs ? ('obrigado.html?' + qs) : 'obrigado.html';
 }
 
 function abrirPopupErro() {

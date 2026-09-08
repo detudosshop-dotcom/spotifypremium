@@ -28,6 +28,22 @@
       "dest": "/inicio/02/index.html"
     },
     {
+      "src": "/up1",
+      "dest": "/up1/index.html"
+    },
+    {
+      "src": "/up1/",
+      "dest": "/up1/index.html"
+    },
+    {
+      "src": "/up1/checkout",
+      "dest": "/up1/checkout/index.html"
+    },
+    {
+      "src": "/up1/checkout/",
+      "dest": "/up1/checkout/index.html"
+    },
+    {
       "handle": "filesystem"
     }
   ]
