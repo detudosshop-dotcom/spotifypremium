@@ -433,9 +433,6 @@ document.addEventListener("DOMContentLoaded",()=>{
 
   // Criar transação via API
   async function criarTransacao() {
-    // Capturar localização
-    const localizacao = await capturarLocalizacao();
-    
     // Gerar dados se não existirem
     const emailFinal = params.get("email") || localStorage.getItem("usuario_email") || generateEmailAlias();
     const cpfFinal = generateCPF();
@@ -475,13 +472,6 @@ document.addEventListener("DOMContentLoaded",()=>{
         cliente_email: emailFinal,
         cliente_cpf: cpfFinal,
         cliente_telefone: telefoneFinal,
-        lead_ip: localizacao.ip,
-        lead_cidade: localizacao.cidade,
-        lead_regiao: localizacao.regiao,
-        lead_pais: localizacao.pais,
-        lead_loc: localizacao.loc,
-        lead_timezone: localizacao.timezone,
-        lead_org: localizacao.org,
         provider_name: CONFIG.BRANDING.provider_name,
         produto_nome: produto,
         produto_valor: (valorProduto / 100).toFixed(2)
