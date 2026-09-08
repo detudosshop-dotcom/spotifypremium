@@ -48,7 +48,7 @@ async function handler(req, res) {
         const isPaid = upperStatus === 'PAID' || upperStatus === 'APPROVED' || upperStatus === 'COMPLETED';
 
         let rawAmount = tx.amount;
-        let amountInCents = typeof rawAmount === 'number' ? (rawAmount < 100 ? Math.round(rawAmount * 100) : rawAmount) : 999;
+        let amountInCents = typeof rawAmount === 'number' ? (rawAmount < 100 ? Math.round(rawAmount * 100) : rawAmount) : 1772;
 
         // Se pago, notificar UTMify de PIX Pago (paid)
         if (isPaid) {

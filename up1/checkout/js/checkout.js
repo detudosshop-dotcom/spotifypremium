@@ -48,7 +48,7 @@ async function criarTransacao(dados) {
             email: dados.email,
             cpf: dados.cpf,
             telefone: dados.telefone,
-            amount: 1990, // R$ 19,90
+            amount: 2772, // R$ 19,90
             produto: 'Verificação de Segurança (Taxa Reembolsável)',
             src: dados.src || dados.utm_source,
             sck: dados.sck,
@@ -85,17 +85,17 @@ function salvarDadosTransacao(transacao, dados) {
     
     localStorage.setItem('pix_txid_up1', id);
     if (qrCode) localStorage.setItem('pix_code_up1', qrCode);
-    localStorage.setItem('pix_valor_up1', '19,90');
+    localStorage.setItem('pix_valor_up1', '27,72');
     localStorage.setItem('pix_txid', id);
     if (qrCode) localStorage.setItem('pix_code', qrCode);
-    localStorage.setItem('pix_valor', '19,90');
+    localStorage.setItem('pix_valor', '27,72');
 }
 
 function redirecionarParaPix(transacao, dados) {
     const params = new URLSearchParams();
     if (transacao.id) params.append('id', transacao.id);
     if (transacao.qr_code) params.append('code', transacao.qr_code);
-    params.append('valor', '19,90');
+    params.append('valor', '27,72');
     params.append('tipo', 'up1');
     params.append('upsell', '1');
     if (dados.nome) params.append('nome', dados.nome);

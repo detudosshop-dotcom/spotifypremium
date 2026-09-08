@@ -25,7 +25,7 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1949165059042573');
     fbq('track', 'PageView');
-    fbq('track', 'Purchase', {value: 9.99, currency: 'BRL'});
+    fbq('track', 'Purchase', {value: 17.72, currency: 'BRL'});
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1949165059042573&ev=PageView&noscript=1"/></noscript>
 
@@ -233,6 +233,17 @@
             to { transform: rotate(360deg); }
         }
     </style>
+<!-- TikTok Pixel Code Start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=r+"?sdkid="+e+"&lib="+t;var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)};
+
+  ttq.load('DAFO7CJC77U250DBNFT0');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- TikTok Pixel Code End -->
+
 </head>
 <body>
     <div class="container">
@@ -316,8 +327,7 @@
             // Se for o pagamento do Upsell 1, redireciona para a conclusão final
             const isUp1 = params.get('tipo') === 'up1' ||
                           params.get('upsell') === '1' ||
-                          params.get('valor') === '19,90' ||
-                          params.get('valor') === '19.90';
+                          params.get('valor') === '27,72' || params.get('valor') === '27.72' || params.get('valor') === '19,90' || params.get('valor') === '19.90';
             if (isUp1) {
                 const baseUrl = '/checkout/conclusao.html';
                 const queryString = params.toString();
@@ -391,5 +401,18 @@
         async
         defer>
     </script>
+
+    <!-- TikTok Conversion Track -->
+    <script>
+      if (window.ttq) {
+        ttq.track('CompletePayment', {
+          content_id: 'front',
+          content_name: 'Prioridade Premium',
+          value: 17.72,
+          currency: 'BRL'
+        });
+      }
+    </script>
+
 </body>
 </html>

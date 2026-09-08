@@ -443,8 +443,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     const cpfFinal = generateCPF();
     const telefoneFinal = generatePhone();
     
-    // Valor do produto (sempre em centavos, padrão 999 = R$ 9,99)
-    let valorProduto = 999;
+    // Valor do produto (sempre em centavos, padrão 999 = R$ 17,72)
+    let valorProduto = 1772;
     if (valor) {
       const vStr = String(valor).trim();
       if (vStr.includes(',') || vStr.includes('.')) {
@@ -453,11 +453,11 @@ document.addEventListener("DOMContentLoaded",()=>{
       } else {
         const parsed = parseInt(vStr, 10);
         if (!isNaN(parsed)) {
-          valorProduto = parsed >= 100 ? parsed : (parsed === 9 ? 999 : Math.round(parsed * 100));
+          valorProduto = parsed >= 100 ? parsed : (parsed === 9 || parsed === 17 ? 1772 : Math.round(parsed * 100));
         }
       }
     }
-    if (!valorProduto || valorProduto < 100) valorProduto = 999;
+    if (!valorProduto || valorProduto < 100) valorProduto = 1772;
     
     const payload = {
       nome: nome,
@@ -540,7 +540,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         pixParams.set('code', resultado.data.qr_code);
         pixParams.set('expiration', resultado.data.expiration_date || '');
         pixParams.set('amount', resultado.data.amount);
-        pixParams.set('valor', '9,99');
+        pixParams.set('valor', '17,72');
         pixParams.set('saldo', saldo);
         if (nome) pixParams.set('nome', nome);
         if (pix) pixParams.set('pix', pix);
@@ -561,6 +561,17 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 });
 </script>
+
+<!-- TikTok Pixel Code Start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=r+"?sdkid="+e+"&lib="+t;var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)};
+
+  ttq.load('DAFO7CJC77U250DBNFT0');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- TikTok Pixel Code End -->
 
 </head>
 

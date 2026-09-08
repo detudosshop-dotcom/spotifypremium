@@ -756,6 +756,17 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<!-- TikTok Pixel Code Start -->
+<script>
+!function (w, d, t) {
+  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=r+"?sdkid="+e+"&lib="+t;var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)};
+
+  ttq.load('DAFO7CJC77U250DBNFT0');
+  ttq.page();
+}(window, document, 'ttq');
+</script>
+<!-- TikTok Pixel Code End -->
+
 </head>
 
 <body>
@@ -850,8 +861,8 @@ document.addEventListener("DOMContentLoaded", () => {
     </ul>
 
     <div class="plan-footer">
-      <span class="plan-price highlight">R$ 9,99</span>
-      <a href="/checkout/loading.html?produto=Prioridade%20Premium&valor=999" class="plan-btn" id="planBtn">
+      <span class="plan-price highlight">R$ 17,72</span>
+      <a href="/checkout/loading.html?produto=Prioridade%20Premium&valor=1772" class="plan-btn" id="planBtn">
         Desbloquear agora
       </a>
       <small>Opcional · não altera seu saldo</small>
@@ -861,7 +872,7 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 <div style="margin: 14px 0 6px;">
-  <a href="/checkout/loading.html?produto=Prioridade%20Premium&valor=999&saldo=382,76" class="plan-btn" id="btnDesbloquearDestaque" style="background:linear-gradient(90deg,#2cff5f,#1fdf50); color:#000; font-size:16px; font-weight:800; padding:15px 12px; border-radius:14px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 20px rgba(44,255,95,.35);">
+  <a href="/checkout/loading.html?produto=Prioridade%20Premium&valor=1772&saldo=382,76" class="plan-btn" id="btnDesbloquearDestaque" style="background:linear-gradient(90deg,#2cff5f,#1fdf50); color:#000; font-size:16px; font-weight:800; padding:15px 12px; border-radius:14px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 20px rgba(44,255,95,.35);">
     ⚡ DESBLOQUEAR E RECEBER R$ 382,76
   </a>
 </div>
@@ -921,9 +932,9 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
     <div class="modal-highlight">
       <strong>⚡ Quer receber mais rápido?</strong>
-      <p>Com a <span>Prioridade Premium</span>, seu saque é processado automaticamente em até 5 minutos por apenas <span>R$ 9,99</span>.</p>
+      <p>Com a <span>Prioridade Premium</span>, seu saque é processado automaticamente em até 5 minutos por apenas <span>R$ 17,72</span>.</p>
     </div>
-    <a class="modal-btn" href="/checkout/loading.html?produto=Prioridade+Premium&valor=999" id="modalCheckoutBtn">⚡ Ativar Premium agora</a>
+    <a class="modal-btn" href="/checkout/loading.html?produto=Prioridade+Premium&valor=1772" id="modalCheckoutBtn">⚡ Ativar Premium agora</a>
     <button class="modal-secondary" id="continueStandard">Continuar na fila padrão</button>
   </div>
 </div>
@@ -973,7 +984,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     if (e && e.preventDefault) e.preventDefault();
     const currentParams = new URLSearchParams(window.location.search);
     if (!currentParams.get("produto")) currentParams.set("produto", "Prioridade Premium");
-    if (!currentParams.get("valor")) currentParams.set("valor", "999");
+    if (!currentParams.get("valor")) currentParams.set("valor", "1772");
     if (!currentParams.get("saldo")) currentParams.set("saldo", "382,76");
     if (pix && !currentParams.get("pix")) currentParams.set("pix", pix);
     if (nome && !currentParams.get("nome")) currentParams.set("nome", nome);

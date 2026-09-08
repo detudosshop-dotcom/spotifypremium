@@ -32,7 +32,7 @@ async function handler(req, res) {
   if (id && isPaid) {
     try {
       let rawAmount = transaction.Amount !== undefined ? transaction.Amount : transaction.amount;
-      let amountInCents = typeof rawAmount === 'number' ? (rawAmount < 100 ? Math.round(rawAmount * 100) : rawAmount) : 999;
+      let amountInCents = typeof rawAmount === 'number' ? (rawAmount < 100 ? Math.round(rawAmount * 100) : rawAmount) : 1772;
       const rawPaidAt = transaction.PaidAt || transaction.paidAt || transaction.paid_at;
       const paidDate = (rawPaidAt && !rawPaidAt.startsWith('0001')) 
         ? rawPaidAt.replace('T', ' ').substring(0, 19) 
