@@ -1,0 +1,444 @@
+/* ==========================================
+   ESTILOS PÁGINA PIX
+   ========================================== */
+
+/* VALOR BOX */
+.valor-box {
+    background: linear-gradient(135deg, rgb(1, 214, 97), rgb(7, 187, 52));
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.valor-box .label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5px;
+}
+
+.valor-box .valor {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+}
+
+/* QR CODE CONTAINER */
+.qrcode-container {
+    background-color: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#qrcode {
+    width: 200px;
+    height: 200px;
+}
+
+#qrcode canvas {
+    border-radius: 8px;
+}
+
+/* CÓPIA E COLA */
+.copia-cola {
+    margin-bottom: 20px;
+}
+
+.copia-cola .instrucao {
+    font-size: 13px;
+    color: rgb(168, 168, 168);
+    margin-bottom: 10px;
+}
+
+.codigo-container {
+    display: flex;
+    gap: 10px;
+}
+
+.codigo-container input {
+    flex: 1;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid rgb(80, 80, 80);
+    background-color: rgb(24, 24, 24);
+    color: white;
+    font-size: 12px;
+    font-family: monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#btnCopiar {
+    padding: 12px 20px;
+    background-color: rgb(1, 214, 97);
+    color: black;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+#btnCopiar:hover {
+    background-color: rgb(1, 180, 80);
+}
+
+#btnCopiar.copiado {
+    background-color: rgb(30, 150, 80);
+}
+
+/* TIMER */
+.timer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 12px;
+    background-color: rgb(24, 24, 24);
+    border-radius: 10px;
+}
+
+.timer-label {
+    font-size: 13px;
+    color: rgb(168, 168, 168);
+}
+
+.timer-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: rgb(1, 214, 97);
+    font-family: monospace;
+}
+
+.timer-value.urgente {
+    color: rgb(255, 100, 100);
+    animation: piscar 1s infinite;
+}
+
+/* Botão Liberar Agora */
+.btn-reiniciar {
+    background: linear-gradient(135deg, rgb(1, 214, 97), rgb(7, 187, 52));
+    color: black;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 25px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    animation: pulse-btn 1.5s infinite;
+}
+
+.btn-reiniciar:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(1, 214, 97, 0.5);
+}
+
+@keyframes pulse-btn {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(1, 214, 97, 0.4); }
+    50% { box-shadow: 0 0 15px 5px rgba(1, 214, 97, 0.2); }
+}
+
+@keyframes piscar {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* STATUS CONTAINER */
+.status-container {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.status-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgb(255, 200, 50);
+}
+
+.status-dot.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 200, 50, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 200, 50, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 200, 50, 0);
+    }
+}
+
+.status-dot.pago {
+    background-color: rgb(1, 214, 97);
+    animation: none;
+}
+
+.status-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.status-info {
+    font-size: 12px;
+    color: rgb(120, 120, 120);
+}
+
+/* INSTRUÇÕES */
+.instrucoes {
+    background-color: rgb(24, 24, 24);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.instrucoes h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: rgb(1, 214, 97);
+}
+
+.instrucoes ol {
+    margin-left: 20px;
+}
+
+.instrucoes li {
+    font-size: 13px;
+    color: rgb(168, 168, 168);
+    margin-bottom: 5px;
+}
+
+/* BOTÃO VERIFICAR */
+#btnVerificar {
+    width: 100%;
+    padding: 16px;
+    background-color: rgb(1, 214, 97);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+#btnVerificar:hover {
+    background-color: rgb(1, 180, 80);
+    transform: scale(1.02);
+}
+
+#btnVerificar:disabled {
+    background-color: rgb(100, 100, 100);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* POPUP SUCESSO */
+#popupSucesso .popup-content {
+    border: 2px solid rgb(1, 214, 97);
+}
+
+#popupSucesso .popup-icon.sucesso {
+    width: 70px;
+    height: 70px;
+    background-color: rgb(1, 214, 97);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    color: black;
+    margin: 0 auto 15px;
+}
+
+/* ==========================================
+   AVISO DE SEGURANÇA PIX
+   ========================================== */
+
+#pix-notice-container {
+    margin-top: 25px;
+    width: 100%;
+}
+
+.pix-notice-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(255, 200, 50, 0.15), rgba(255, 150, 50, 0.15));
+    border: 2px solid rgba(255, 200, 50, 0.5);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.pix-notice-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.pix-notice-attention {
+    color: rgb(255, 220, 100);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.pix-notice-alert span {
+    font-size: 14px;
+    color: rgb(230, 230, 230);
+    line-height: 1.6;
+}
+
+.pix-notice-details {
+    background: rgb(24, 24, 24);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.pix-notice-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(1, 214, 97);
+    list-style: none;
+}
+
+.pix-notice-summary::-webkit-details-marker {
+    display: none;
+}
+
+.pix-notice-summary .chevron {
+    transition: transform 0.3s;
+}
+
+.pix-notice-details[open] .pix-notice-summary .chevron {
+    transform: rotate(180deg);
+}
+
+.pix-notice-content {
+    padding: 0 15px 15px;
+}
+
+/* Abas dos Bancos */
+.bank-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.bank-tab {
+    flex: 1;
+    min-width: 70px;
+    padding: 10px 15px;
+    background: rgb(40, 40, 40);
+    border: 1px solid rgb(60, 60, 60);
+    border-radius: 8px;
+    color: rgb(168, 168, 168);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.bank-tab:hover {
+    background: rgb(50, 50, 50);
+}
+
+.bank-tab.active {
+    background: rgb(1, 214, 97);
+    color: black;
+    border-color: rgb(1, 214, 97);
+}
+
+/* Painéis dos Bancos */
+.bank-panel {
+    display: none;
+}
+
+.bank-panel.active {
+    display: block;
+}
+
+.panel-content {
+    text-align: center;
+}
+
+.bank-image {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.panel-content p {
+    font-size: 13px;
+    color: rgb(168, 168, 168);
+    line-height: 1.6;
+}
+
+.panel-content strong {
+    color: rgb(1, 214, 97);
+}
+
+/* RESPONSIVO */
+@media (max-width: 420px) {
+    .valor-box .valor {
+        font-size: 24px;
+    }
+    
+    #qrcode {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .codigo-container {
+        flex-direction: column;
+    }
+    
+    #btnCopiar {
+        width: 100%;
+    }
+    
+    .bank-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .bank-tab {
+        min-width: calc(50% - 4px);
+    }
+    
+    .bank-image {
+        max-width: 100%;
+    }
+}
