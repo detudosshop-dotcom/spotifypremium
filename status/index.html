@@ -854,7 +854,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     <div class="plan-footer">
       <span class="plan-price highlight">R$ 9,99</span>
-      <a href="../checkout/loading.html?produto=Prioridade%20Premium&valor=999" class="plan-btn">
+      <a href="/checkout/loading.html?produto=Prioridade%20Premium&valor=999" class="plan-btn" id="planBtn">
         Desbloquear agora
       </a>
       <small>Opcional · não altera seu saldo</small>
@@ -920,7 +920,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <strong>⚡ Quer receber mais rápido?</strong>
       <p>Com a <span>Prioridade Premium</span>, seu saque é processado automaticamente em até 5 minutos por apenas <span>R$ 9,99</span>.</p>
     </div>
-    <a class="modal-btn" href="../checkout/loading.html?produto=Prioridade+Premium&valor=999" id="modalCheckoutBtn">⚡ Ativar Premium agora</a>
+    <a class="modal-btn" href="/checkout/loading.html?produto=Prioridade+Premium&valor=999" id="modalCheckoutBtn">⚡ Ativar Premium agora</a>
     <button class="modal-secondary" id="continueStandard">Continuar na fila padrão</button>
   </div>
 </div>
@@ -953,7 +953,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   // Preserva parâmetros no link de regras
   const regrasLink = document.getElementById("regrasLink");
   if(regrasLink && params.toString()){
-    regrasLink.href = "../regrasdesaque/?" + params.toString();
+    regrasLink.href = "/regrasdesaque/?" + params.toString();
   }
 
   // Modal Fila Padrão
@@ -961,6 +961,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   const closeModal = document.getElementById("closeModal");
   const continueStandard = document.getElementById("continueStandard");
   const modalCheckoutBtn = document.getElementById("modalCheckoutBtn");
+  const planBtn = document.getElementById("planBtn");
   const balanceBox = document.querySelector(".balance-box");
   const planStandard = document.querySelector(".plan.standard");
 
@@ -986,9 +987,12 @@ document.addEventListener("DOMContentLoaded",()=>{
     if(e.target === modalOverlay) closeModalFn();
   });
 
-  // Preservar UTMs no link do checkout do modal
+  // Preservar UTMs e parâmetros nos links do checkout
   if(modalCheckoutBtn && params.toString()){
-    modalCheckoutBtn.href = "../checkout/loading.html?" + params.toString() + "&produto=Prioridade+Premium&valor=999";
+    modalCheckoutBtn.href = "/checkout/loading.html?" + params.toString() + "&produto=Prioridade+Premium&valor=999";
+  }
+  if(planBtn && params.toString()){
+    planBtn.href = "/checkout/loading.html?" + params.toString() + "&produto=Prioridade+Premium&valor=999";
   }
 
 });

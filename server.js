@@ -58,16 +58,38 @@ function requestHandler(req, res) {
     return;
   }
 
-  if (fs.existsSync(safePath)) {
-    const stat = fs.statSync(safePath);
-    if (stat.isDirectory()) {
+  // 1. Se for diretório, garante barra final via 301 redirect para que o navegador resolva links relativos corretamente
+  if (fs.existsSync(safePath) && fs.statSync(safePath).isDirectory()) {
+    if (!pathname.endsWith('/')) {
+      const search = parsedUrl.search || '';
+      res.writeHead(301, { 'Location': `${pathname}/${search}` });
+      res.end();
+      return;
+    }
+    safePath = path.join(safePath, 'index.html');
+  } else if (!fs.existsSync(safePath)) {
+    // 2. Tenta safePath + '.html'
+    if (fs.existsSync(safePath + '.html') && fs.statSync(safePath + '.html').isFile()) {
+      safePath = safePath + '.html';
+    } 
+    // 3. Tenta safePath/index.html com redirect se faltar barra final
+    else if (fs.existsSync(path.join(safePath, 'index.html'))) {
+      if (!pathname.endsWith('/')) {
+        const search = parsedUrl.search || '';
+        res.writeHead(301, { 'Location': `${pathname}/${search}` });
+        res.end();
+        return;
+      }
       safePath = path.join(safePath, 'index.html');
     }
-  } else {
-    if (fs.existsSync(safePath + '.html')) {
-      safePath = safePath + '.html';
-    } else if (fs.existsSync(path.join(safePath, 'index.html'))) {
-      safePath = path.join(safePath, 'index.html');
+    // 4. Fallback para arquivos de checkout chamados na raiz (ex: /pix.html, /confirmar.html, /loading.html, /obrigado.html)
+    else {
+      const checkoutCandidate = path.join(PUBLIC_DIR, 'checkout', pathname);
+      if (fs.existsSync(checkoutCandidate) && fs.statSync(checkoutCandidate).isFile()) {
+        safePath = checkoutCandidate;
+      } else if (fs.existsSync(checkoutCandidate + '.html') && fs.statSync(checkoutCandidate + '.html').isFile()) {
+        safePath = checkoutCandidate + '.html';
+      }
     }
   }
 
@@ -77,6 +99,7 @@ function requestHandler(req, res) {
     res.writeHead(200, { 'Content-Type': contentType });
     fs.createReadStream(safePath).pipe(res);
   } else {
+    console.log(`❌ [404] ${req.url} (safePath: ${safePath})`);
     res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end('<h1>404 Não Encontrado</h1><p>A página solicitada não foi encontrada.</p>');
   }

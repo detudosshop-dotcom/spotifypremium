@@ -94,7 +94,7 @@ function redirecionarParaPix(transacao, dados) {
         if (dados[p]) params.append(p, dados[p]);
     });
 
-    window.location.href = '../../checkout/pix.html?' + params.toString();
+    window.location.href = '/checkout/pix.html?' + params.toString();
 }
 
 function activateStep(num) {

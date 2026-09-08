@@ -178,7 +178,7 @@ footer a{color:#aaa;text-decoration:none}
 </div>
 
 <footer>
-  <a href="../status/" id="voltarLink">Voltar</a> · <a href="https://www.spotify.com/br-pt/legal/privacy-policy/" data-utmify-link>Privacidade</a>
+  <a href="/status/" id="voltarLink">Voltar</a> · <a href="https://www.spotify.com/br-pt/legal/privacy-policy/" data-utmify-link>Privacidade</a>
 </footer>
 
 </div>
@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   
   // Preserva todos os parâmetros da URL no link de voltar
   if(voltarLink && params.toString()){
-    voltarLink.href = "../status/?" + params.toString();
+    voltarLink.href = "/status/?" + params.toString();
   }
   
   // Salva UTMs no localStorage se presentes

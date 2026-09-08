@@ -54,11 +54,11 @@ const CONFIG = {
     // REDIRECIONAMENTOS
     // ==========================================
     REDIRECTS: {
-        pix: 'pix.html',
-        obrigado: '/status/',
-        erro: 'error.html',
-        pending: 'pending.html',
-        confirmar: 'confirmar.html'
+        pix: '/checkout/pix.html',
+        obrigado: '/checkout/obrigado.html',
+        erro: '/checkout/error.html',
+        pending: '/checkout/pending.html',
+        confirmar: '/checkout/confirmar.html'
     },
 
     // ==========================================

@@ -314,7 +314,7 @@
         function buildRedirectUrl() {
             const params = new URLSearchParams(window.location.search);
             const dadosCliente = getDadosCliente();
-            const baseUrl = '../up1/index.html';
+            const baseUrl = '/up1/';
             
             if (!params.get('nome') && dadosCliente.nome) params.append('nome', dadosCliente.nome);
             if (!params.get('email') && dadosCliente.email) params.append('email', dadosCliente.email);

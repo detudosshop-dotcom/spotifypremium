@@ -191,7 +191,7 @@ function irParaConfirmacao() {
     } catch(e) {}
 
     const qs = params.toString();
-    window.location.href = qs ? ('obrigado.html?' + qs) : 'obrigado.html';
+    window.location.href = qs ? ('/checkout/obrigado.html?' + qs) : '/checkout/obrigado.html';
 }
 
 function abrirPopupErro() {
