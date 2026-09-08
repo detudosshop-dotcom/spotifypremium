@@ -1,0 +1,413 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify</title>
+    
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "uem62uib5t");
+</script>
+
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '949313014576281');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1597899204644792&ev=PageView&noscript=1"/></noscript>
+
+    <!-- FONT GOOGLE POPPINS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            justify-content: space-around;
+            display: flex;
+            flex-direction: column;
+            background-color: rgb(24, 24, 24);
+            align-items: center;    /* Centraliza verticalmente */
+          }
+          .centralizado {
+            margin-top: 70px;
+            width: 300px;
+            background-color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px;
+          }
+          *{
+            font-family: "Poppins", sans-serif;
+            color: white;
+            padding: 0px;
+          }
+          #logocentral{
+            width: 90px;
+          }
+          #textoprincipalsptfy{
+            font-size: 23px;
+            font-weight: 700;
+          }
+          #descricaoiniciospotify{
+            color: rgb(168, 168, 168);
+            margin-top: -10px;
+            font-size: 14px;
+          }
+          #descricaoiniciospotifyy{
+            color: rgb(168, 168, 168);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 0 15px;
+            text-align: center;
+          }
+          #divisorlinha{
+            width: 95%;
+            height: 1px;
+            background-color: rgb(105, 105, 105);
+          }
+          #txtinputmeil{
+            color: rgb(168, 168, 168);
+          }
+          #logincadastro{
+            display: flex;
+            font-size: 15px;
+            width: 100%;
+            flex-direction: column;
+            text-align: left;
+          }
+          #inputcadastro, #nomeInput{
+            padding: 13px 10px;
+            color: rgb(168, 168, 168);
+            border-radius: 5px;
+            margin-top: 5px;
+            border: 1px solid rgb(168, 168, 168);
+            background-color: rgb(24, 24, 24);
+          }
+          #meuBotao{
+            padding: 13px 10px;
+            background-color: gray;
+            color: white;
+            margin-top: 10px;
+            border-radius: 50px;
+            border: 1px solid gray;
+            text-decoration: none;
+            width: 90%;
+            font-weight: 600;
+          }
+
+        /* Estilo após a mudança de cor */
+        .verde {
+            background-color: rgb(1, 214, 97);
+            cursor: pointer; /* Muda o cursor para indicar que agora é clicável */
+        }
+          #topoFixo {
+            position: fixed;
+            top: 0; /* Define a posição no topo da página */
+            left: 0; /* Alinha à esquerda */
+            width: 100%; /* Faz a div ocupar toda a largura da página */
+            background-color: #000000; /* Cor de fundo (verde) */
+            color: white; /* Cor do texto */
+            padding: 15px 10px;
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            text-align: center; /* Centraliza o texto */
+        }
+        #logo{
+            width: 130px;
+        }
+        #saldoatual{
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-right: 20px;
+            background-color: rgb(7, 187, 52);
+        }
+        #txtnotificacao{
+            color: white;
+        }
+        #notificacao{
+            background-color: rgba(1, 214, 97, 0.434);
+            display: flex;
+            margin-top: -10px;
+            align-items: center;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 14px;
+            justify-content: center;
+            width: 100%;
+            height: 35px;
+            border-radius: 10px;
+            border: 1px solid rgb(1, 214, 97);
+        }
+        .link-verde {
+  color: rgb(1, 214, 97);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.link-verde:hover {
+  text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+    <!-- TOPO FIXO -->
+    <div id="topoFixo">
+        <img src="images/logo.png" id="logo">
+        <div id="saldoatual">
+            Saldo: R$ 351,17
+        </div>
+    </div>
+
+    <div class="centralizado">
+        <!-- IMAGEM DA LOGO -->
+        <img src="images/logowhite.png" id="logocentral">
+
+        <!-- TEXTO POP UP -->
+         <p id="textoprincipalsptfy">
+            Olá, <b id="mensagem">Nome não encontrado!</b>
+         </p>
+
+         <!-- DESCRICAO -->
+          <p id="descricaoiniciospotify">
+            Escute a música abaixo e <b>ganhe por isso</b>
+          </p>
+
+          <div id="notificacao">
+            <p id="txtnotificacao">Você ganhou <b>R$ 36,82</b></p>
+        </div>
+
+           <!-- DADOS DE LOGIN -->
+           <iframe style="border-radius:10px" src="https://open.spotify.com/embed/track/560vXBs6hssdrdOw13QPl9?utm_source=generator&amp;theme=0" width="100%" height="200" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+           <!-- SISTEMA DE AVALIACAO -->
+            <style>
+                .botaperguntas{
+                    display: flex;
+                    padding: 10px;
+                    margin-top: -20px;
+                    justify-content: space-between;
+                }
+                .opcao {
+  padding: 10px 50px;
+  border-radius: 10px;
+  width: 90%;
+  background-color: gray;
+  color: white;
+  cursor: pointer;
+}
+
+                #avalaiacao{
+                    margin-top: -50px;
+                }
+            </style>
+            <div id="avalaiacao">
+
+  <!-- PERGUNTA 1 -->
+  <div class="perguntacompleta">
+    <p id="texytpergunta">Curte música dançante?</p>
+    <div class="botaperguntas" data-grupo="q1">
+      <div class="opcao" onclick="selecionarOpcao('q1', this)">Sim</div>
+      <div class="opcao" onclick="selecionarOpcao('q1', this)" style="margin-left:10px;">Não</div>
+    </div>
+  </div>
+
+  <!-- PERGUNTA 2 -->
+  <div class="perguntacompleta">
+    <p id="texytpergunta">Você escuta Pedro Sampaio?</p>
+    <div class="botaperguntas" data-grupo="q2">
+      <div class="opcao" onclick="selecionarOpcao('q2', this)">Sim</div>
+      <div class="opcao" onclick="selecionarOpcao('q2', this)" style="margin-left:10px;">Não</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let respondeuQ1 = false;
+  let respondeuQ2 = false;
+  let tempoLiberado = false;
+</script>
+
+
+               <script>
+function selecionarOpcao(grupo, botaoClicado) {
+    const grupoBotoes = document.querySelectorAll(
+        `.botaperguntas[data-grupo="${grupo}"] .opcao`
+    );
+
+    grupoBotoes.forEach(botao => {
+        botao.style.backgroundColor = 'gray';
+        botao.style.borderColor = 'gray';
+    });
+
+    botaoClicado.style.backgroundColor = 'rgb(1, 214, 97)';
+    botaoClicado.style.borderColor = 'rgb(1, 214, 97)';
+
+    // Marca pergunta como respondida
+    if (grupo === 'q1') respondeuQ1 = true;
+    if (grupo === 'q2') respondeuQ2 = true;
+
+    verificarLiberacao();
+}
+</script>
+
+<script>
+function verificarLiberacao() {
+    if (tempoLiberado && respondeuQ1 && respondeuQ2) {
+        const botao = document.getElementById('meuBotao');
+        botao.style.backgroundColor = 'rgb(1, 214, 97)';
+        botao.style.borderColor = 'rgb(1, 214, 97)';
+        botao.style.cursor = 'pointer';
+        botao.innerText = 'Ir para a próxima música';
+        botao.disabled = false;
+
+         // 🔥 REDIRECIONAMENTO AQUI
+        botao.onclick = function () {
+            const params = new URLSearchParams(window.location.search);
+            const nome = params.get('nome');
+
+            // UTMs
+            const utmParams = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content']
+                .map(p => localStorage.getItem(p) ? `${p}=${encodeURIComponent(localStorage.getItem(p))}` : '')
+                .filter(Boolean)
+                .join('&');
+
+            let urlDestino = '../10/';
+
+            if (nome) {
+                urlDestino += `?nome=${encodeURIComponent(nome)}`;
+                if (utmParams) urlDestino += `&${utmParams}`;
+            }
+
+            window.location.href = urlDestino;
+        };
+    }
+}
+</script>
+
+
+<button id="meuBotao" disabled>De play e faça um feedback</button>
+
+            <p id="descricaoiniciospotifyy">
+  Este site é protegido pelo reCAPTCHA e está sujeito à 
+  <a href="https://www.spotify.com/br-pt/legal/privacy-policy/" target="_blank" class="link-verde">
+    Política de Privacidade
+  </a>
+  e aos 
+  <a href="https://policies.google.com/terms?hl=pt-BR" target="_blank" class="link-verde">
+    Termos de Serviço do Google
+  </a>.
+</p>
+            </div>
+
+
+<script>
+    // Função para mudar a cor do botão e da borda, além de habilitar o redirecionamento
+    function mudarBotao() {
+        const botao = document.getElementById('meuBotao');
+        botao.style.backgroundColor = 'rgb(1, 214, 97)';  // Altera a cor do fundo diretamente
+        botao.style.borderColor = 'rgb(1, 214, 97)';  // Altera a cor da borda diretamente
+        botao.style.cursor = 'pointer';  // Muda o cursor para indicar que agora é clicável
+        botao.innerText = 'Ir para a próxima música';  // Altera o texto do botão
+        botao.disabled = false;  // Habilita o botão para ser clicado
+
+        // Adiciona o redirecionamento ao clicar no botão
+        botao.onclick = function() {
+            // Obtém os parâmetros da URL
+            const params = new URLSearchParams(window.location.search);
+
+            // Captura o valor do parâmetro "nome"
+            const nome = params.get('nome');
+
+            // Captura UTMs salvas no localStorage
+            const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
+                .map(param => {
+                    const value = localStorage.getItem(param);
+                    return value ? `${param}=${encodeURIComponent(value)}` : '';
+                })
+                .filter(Boolean)
+                .join('&');
+
+            // Monta a URL de destino
+            if (nome) {
+                document.getElementById('mensagem').innerText = `${nome}!`;
+
+                let urlDestino = `/10/?nome=${encodeURIComponent(nome)}`;
+
+                // Se tiver UTMs, adiciona na URL
+                if (utmParams) {
+                    urlDestino += `&${utmParams}`;
+                }
+
+                // Redireciona para a próxima página
+                window.location.href = urlDestino;
+            } else {
+                document.getElementById('mensagem').innerText = 'Nome não encontrado!';
+            }
+        }
+    }
+
+    
+</script>
+
+<script>
+setTimeout(() => {
+    tempoLiberado = true;
+    verificarLiberacao();
+}, 10000);
+</script>
+
+            <script>
+                window.onload = function() {
+                    // Obtém os parâmetros da URL
+                    const params = new URLSearchParams(window.location.search);
+
+                    // Captura o valor do parâmetro "nome"
+                    const nome = params.get('nome');
+
+                    // Exibe o valor no HTML
+                    if (nome) {
+                        document.getElementById('mensagem').innerText = `${nome}!`;
+                    } else {
+                        document.getElementById('mensagem').innerText = 'Nome não encontrado!';
+                    }
+                }
+            </script>
+
+
+                 </div>
+
+       <!-- SCRIPT DO UTMFY -->
+    <script>
+  if (!document.querySelector('iframe[src*="open.spotify.com"]')) {
+    var s = document.createElement('script');
+    s.src = 'https://cdn.utmify.com.br/scripts/utms/latest.js';
+    s.async = true;
+    s.defer = true;
+    s.setAttribute('data-utmify-prevent-xcod-sck', '');
+    s.setAttribute('data-utmify-prevent-subids', '');
+    s.setAttribute('data-utmify-prevent-iframes', '');
+    document.body.appendChild(s);
+  }
+</script>
+
+</body></html>

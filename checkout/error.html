@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erro no Pagamento | Spotify</title>
+    
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "uem62uib5t");
+    </script>
+    
+    <!-- Facebook Pixel -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1949165059042573');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1597899204644792&ev=PageView&noscript=1"/></noscript>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgb(255, 80, 80), rgb(200, 50, 50));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .error-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
+        .error-title {
+            color: rgb(255, 100, 100);
+        }
+        .error-code {
+            background: rgb(40, 20, 20);
+            border: 1px solid rgb(255, 80, 80);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 12px;
+            color: rgb(255, 150, 150);
+            word-break: break-all;
+        }
+        .error-message {
+            background: rgb(24, 24, 24);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            color: rgb(168, 168, 168);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .btn-secondary {
+            background: rgb(80, 80, 80);
+            color: white;
+            margin-top: 10px;
+        }
+        .btn-secondary:hover {
+            background: rgb(100, 100, 100);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="error-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            </div>
+            <h1 class="error-title">Erro no Pagamento</h1>
+            <p class="subtitle">Ocorreu um erro ao processar seu pagamento. Por favor, tente novamente.</p>
+            
+            <div class="error-code" id="errorCode">Código: UNKNOWN</div>
+            
+            <div class="error-message" id="errorMessage">
+                Não foi possível processar sua solicitaç��o. Verifique seus dados e tente novamente.
+            </div>
+            
+            <button class="btn-primary" onclick="tentarNovamente()">TENTAR NOVAMENTE</button>
+            <button class="btn-secondary" onclick="voltar()">VOLTAR AO INÍCIO</button>
+            
+            <div class="help-text">
+                Precisa de ajuda? <a href="#">Entre em contato com o suporte</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Carregar parâmetros de erro
+        const params = new URLSearchParams(window.location.search);
+        const error = params.get('error') || 'UNKNOWN';
+        const message = params.get('message') || 'Ocorreu um erro ao processar seu pagamento.';
+        
+        document.getElementById('errorCode').textContent = 'Código: ' + error;
+        document.getElementById('errorMessage').textContent = decodeURIComponent(message);
+        
+        // Salvar erro no localStorage para debug
+        const errorLog = {
+            code: error,
+            message: message,
+            timestamp: new Date().toISOString(),
+            utm: {
+                source: localStorage.getItem('utm_source'),
+                medium: localStorage.getItem('utm_medium'),
+                campaign: localStorage.getItem('utm_campaign')
+            }
+        };
+        
+        let errors = JSON.parse(localStorage.getItem('error_log') || '[]');
+        errors.push(errorLog);
+        localStorage.setItem('error_log', JSON.stringify(errors.slice(-10))); // Manter últimos 10 erros
+        
+        function tentarNovamente() {
+            // Limpar transação atual
+            localStorage.removeItem('transacao_atual');
+            localStorage.removeItem('transacao_id');
+            
+            // Voltar ao checkout
+            window.location.href = 'index.html';
+        }
+        
+        function voltar() {
+            // Voltar para página de status
+            window.location.href = '../status/index.html';
+        }
+    </script>
+</body>
+</html>
