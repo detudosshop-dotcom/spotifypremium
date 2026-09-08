@@ -182,14 +182,6 @@
         font-weight: 700;
       }
 
-      iframe {
-        width: 100%;
-        border-radius: 12px;
-        margin-bottom: 14px;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-        border: none;
-      }
-
       #avalaiacao {
         width: 100%;
       }
@@ -262,7 +254,7 @@
         color: #000000;
         cursor: pointer;
         box-shadow: 0 4px 16px rgba(30, 215, 96, 0.45);
-        animation: pulseGlow 2s infinite ease-in-out;
+        animation: pulseGlow 1.8s infinite ease-in-out;
       }
 
       #meuBotao.verde:active {
@@ -276,7 +268,7 @@
         }
         50% {
           box-shadow: 0 6px 22px rgba(30, 215, 96, 0.65);
-          transform: scale(1.015);
+          transform: scale(1.02);
         }
       }
 
@@ -296,6 +288,39 @@
       .link-verde:hover {
         text-decoration: underline;
       }
+
+      .audio-control-bar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: rgba(30, 215, 96, 0.08);
+        border: 1px solid rgba(30, 215, 96, 0.25);
+        border-radius: 20px;
+        padding: 6px 14px;
+        margin-top: -4px;
+        margin-bottom: 14px;
+        font-size: 12px;
+        color: #1ed760;
+        cursor: pointer;
+        user-select: none;
+        transition: all 0.2s ease;
+      }
+      .audio-control-bar:active {
+        transform: scale(0.96);
+      }
+      .pulse-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background-color: #1ed760;
+        box-shadow: 0 0 8px #1ed760;
+        animation: pulseDot 1.4s infinite;
+      }
+      @keyframes pulseDot {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.3; transform: scale(0.8); }
+      }
     </style>
 
 </head>
@@ -314,7 +339,7 @@
 
         <!-- NOME DINAMICO -->
         <p id="textoprincipalsptfy">
-            Olá, <b id="mensagem">Nome não encontrado!</b>
+            Olá, <b id="mensagem">Visitante!</b>
         </p>
 
         <!-- SUBTITULO -->
@@ -328,8 +353,16 @@
             <p id="txtnotificacao">Você ganhou <b>R$ 33,03</b></p>
         </div>
 
-        <!-- PLAYER SPOTIFY -->
-        <iframe style="border-radius:12px;" src="https://open.spotify.com/embed/track/7IFsTX5H1sWcEl8joV0IdD?utm_source=generator&theme=0" width="100%" height="180" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <!-- PLAYER SPOTIFY COM AUTOPLAY -->
+        <div id="spotify-embed-container" style="width: 100%;">
+            <iframe id="spotify-iframe" style="border-radius: 12px; width: 100%; border: none; margin-bottom: 10px;" src="https://open.spotify.com/embed/track/7IFsTX5H1sWcEl8joV0IdD?utm_source=generator&theme=0&autoplay=1" height="180" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+
+        <!-- CONTROLE DE ÁUDIO REPRODUZIR / PAUSAR -->
+        <div class="audio-control-bar" id="audioControl" onclick="toggleAudio()">
+            <span class="pulse-dot" id="audioDot"></span>
+            <span id="audioControlText">Música reproduzindo • Pausar ⏸</span>
+        </div>
 
         <!-- SISTEMA DE AVALIACAO -->
         <div id="avalaiacao">
@@ -351,8 +384,8 @@
                 </div>
             </div>
 
-            <!-- BOTAO DE AVANCO -->
-            <button id="meuBotao" disabled>De play e faça um feedback</button>
+            <!-- BOTAO DE AVANCO (LIBERA IMEDIATAMENTE APÓS AS DUAS RESPOSTAS) -->
+            <button id="meuBotao" disabled>Responda as perguntas acima</button>
 
             <!-- TERMOS -->
             <p id="descricaoiniciospotifyy">
@@ -364,10 +397,77 @@
         </div>
     </div>
 
+    <!-- SPOTIFY IFRAME API PARA AUTOPLAY E CONTROLE COMPLETO -->
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script>
     <script>
     let respondeuQ1 = false;
     let respondeuQ2 = false;
-    let tempoLiberado = false;
+    let spotifyController = null;
+    let isPlaying = true;
+
+    // Inicialização da API do Spotify
+    window.onSpotifyIframeApiReady = (IFrameAPI) => {
+        const container = document.getElementById('spotify-embed-container');
+        if (!container) return;
+
+        const options = {
+            uri: 'spotify:track:7IFsTX5H1sWcEl8joV0IdD',
+            width: '100%',
+            height: '180'
+        };
+
+        const callback = (EmbedController) => {
+            spotifyController = EmbedController;
+            try {
+                EmbedController.play();
+            } catch(e) {}
+
+            EmbedController.addListener('playback_update', e => {
+                isPlaying = !e.data.isPaused;
+                atualizarBarraAudio(isPlaying);
+            });
+        };
+
+        container.innerHTML = '';
+        IFrameAPI.createController(container, options, callback);
+    };
+
+    function toggleAudio() {
+        if (spotifyController) {
+            try {
+                spotifyController.togglePlay();
+            } catch(e) {}
+        } else {
+            isPlaying = !isPlaying;
+            atualizarBarraAudio(isPlaying);
+        }
+    }
+
+    function atualizarBarraAudio(tocando) {
+        const textEl = document.getElementById('audioControlText');
+        const dotEl = document.getElementById('audioDot');
+        if (!textEl) return;
+
+        if (tocando) {
+            textEl.innerText = 'Música reproduzindo • Pausar ⏸';
+            if (dotEl) {
+                dotEl.style.display = 'inline-block';
+            }
+        } else {
+            textEl.innerText = 'Música pausada • Tocar ▶';
+            if (dotEl) {
+                dotEl.style.display = 'none';
+            }
+        }
+    }
+
+    // Iniciar áudio com qualquer toque na tela se o navegador bloquear autoplay sem gesto
+    document.addEventListener('touchstart', function unlockAudio() {
+        if (spotifyController) {
+            try { spotifyController.play(); } catch(e) {}
+        }
+        document.removeEventListener('touchstart', unlockAudio);
+    }, { once: true });
 
     function selecionarOpcao(grupo, botaoClicado) {
         const grupoBotoes = document.querySelectorAll(
@@ -383,11 +483,16 @@
         if (grupo === 'q1') respondeuQ1 = true;
         if (grupo === 'q2') respondeuQ2 = true;
 
+        if (spotifyController) {
+            try { spotifyController.play(); } catch(e) {}
+        }
+
         verificarLiberacao();
     }
 
+    // LIBERAÇÃO INSTANTÂNEA: Assim que responder Q1 e Q2, libera na hora!
     function verificarLiberacao() {
-        if (tempoLiberado && respondeuQ1 && respondeuQ2) {
+        if (respondeuQ1 && respondeuQ2) {
             const botao = document.getElementById('meuBotao');
             botao.classList.add('verde');
             botao.innerText = 'Ir para a próxima música';
@@ -419,19 +524,10 @@
         }
     }
 
-    // 10s timer
-    setTimeout(() => {
-        tempoLiberado = true;
-        verificarLiberacao();
-    }, 10000);
-
     // Carregar nome
     window.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
-        let nome = params.get('nome');
-        if (!nome) {
-            nome = localStorage.getItem('usuario_nome');
-        }
+        let nome = params.get('nome') || localStorage.getItem('usuario_nome');
         if (nome) {
             document.getElementById('mensagem').innerText = `${nome}!`;
         } else {
