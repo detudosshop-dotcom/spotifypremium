@@ -37,8 +37,8 @@ const CONFIG = {
     // ==========================================
     PRODUTO: {
         nome: 'Prioridade Premium',
-        valor: 1772, // em centavos (R$ 9,99)
-        valor_formatado: 'R$ 17,72',
+        valor: 1292, // em centavos (R$ 9,99)
+        valor_formatado: 'R$ 12,92',
         externalRef: 'prioridade_premium'
     },
 

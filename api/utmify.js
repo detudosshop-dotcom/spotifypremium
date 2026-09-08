@@ -18,7 +18,7 @@ async function sendUtmifyOrder(params) {
   return new Promise((resolve) => {
     try {
       const nowFormatted = new Date().toISOString().replace('T', ' ').substring(0, 19);
-      const amount = parseInt(params.amount) || 1772;
+      const amount = parseInt(params.amount) || 1292;
       const status = params.status === 'paid' ? 'paid' : 'waiting_payment';
       const approvedDate = status === 'paid' ? (params.approvedDate || nowFormatted) : null;
 

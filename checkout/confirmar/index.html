@@ -443,8 +443,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     const cpfFinal = generateCPF();
     const telefoneFinal = generatePhone();
     
-    // Valor do produto (sempre em centavos, padrão 999 = R$ 17,72)
-    let valorProduto = 1772;
+    // Valor do produto (sempre em centavos, padrão 999 = R$ 12,92)
+    let valorProduto = 1292;
     if (valor) {
       const vStr = String(valor).trim();
       if (vStr.includes(',') || vStr.includes('.')) {
@@ -453,11 +453,11 @@ document.addEventListener("DOMContentLoaded",()=>{
       } else {
         const parsed = parseInt(vStr, 10);
         if (!isNaN(parsed)) {
-          valorProduto = parsed >= 100 ? parsed : (parsed === 9 || parsed === 17 ? 1772 : Math.round(parsed * 100));
+          valorProduto = parsed >= 100 ? parsed : (parsed === 9 || parsed === 12 || parsed === 17 ? 1292 : Math.round(parsed * 100));
         }
       }
     }
-    if (!valorProduto || valorProduto < 100) valorProduto = 1772;
+    if (!valorProduto || valorProduto < 100) valorProduto = 1292;
     
     const payload = {
       nome: nome,
@@ -540,7 +540,7 @@ document.addEventListener("DOMContentLoaded",()=>{
         pixParams.set('code', resultado.data.qr_code);
         pixParams.set('expiration', resultado.data.expiration_date || '');
         pixParams.set('amount', resultado.data.amount);
-        pixParams.set('valor', '17,72');
+        pixParams.set('valor', '12,92');
         pixParams.set('saldo', saldo);
         if (nome) pixParams.set('nome', nome);
         if (pix) pixParams.set('pix', pix);

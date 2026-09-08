@@ -8,7 +8,7 @@ let estadoPix = {
     transacaoId: null,
     qrCode: null,
     expirationDate: null,
-    amount: 1772,
+    amount: 1292,
     timerInterval: null,
     checkInterval: null
 };
@@ -47,7 +47,7 @@ function carregarDadosURL() {
         }
     }
     if (!estadoPix.amount || estadoPix.amount < 100) {
-        estadoPix.amount = 1772;
+        estadoPix.amount = 1292;
     }
 }
 
@@ -58,7 +58,7 @@ function carregarDadosLocalStorage() {
     
     if (pixCode && !estadoPix.qrCode) estadoPix.qrCode = pixCode;
     if (pixTxId && !estadoPix.transacaoId) estadoPix.transacaoId = pixTxId;
-    if (pixValor && (!estadoPix.amount || estadoPix.amount === 1772 || estadoPix.amount === 999)) {
+    if (pixValor && (!estadoPix.amount || estadoPix.amount === 1292 || estadoPix.amount === 1772 || estadoPix.amount === 999)) {
         const s = String(pixValor).trim().replace(',', '.');
         const f = parseFloat(s);
         if (!isNaN(f) && f > 0) estadoPix.amount = Math.round(f * 100);
@@ -70,7 +70,7 @@ function carregarDadosLocalStorage() {
             const dados = JSON.parse(transacao);
             if (!estadoPix.transacaoId && dados.id) estadoPix.transacaoId = dados.id;
             if (!estadoPix.qrCode && (dados.qrCode || dados.qr_code)) estadoPix.qrCode = dados.qrCode || dados.qr_code;
-            if (dados.amount && (!estadoPix.amount || estadoPix.amount === 1772 || estadoPix.amount === 999)) estadoPix.amount = dados.amount;
+            if (dados.amount && (!estadoPix.amount || estadoPix.amount === 1292 || estadoPix.amount === 1772 || estadoPix.amount === 999)) estadoPix.amount = dados.amount;
             if (dados.expirationDate && !estadoPix.expirationDate) estadoPix.expirationDate = dados.expirationDate;
         } catch(e) {}
     }
@@ -122,7 +122,7 @@ async function gerarPixAutomatico() {
     try {
         const payload = {
             nome: localStorage.getItem('usuario_nome') || localStorage.getItem('pix_nome') || 'Cliente Spotify',
-            amount: estadoPix.amount || 1772,
+            amount: estadoPix.amount || 1292,
             produto: 'Prioridade Premium'
         };
         
@@ -136,12 +136,12 @@ async function gerarPixAutomatico() {
         if (res.success && res.data) {
             estadoPix.transacaoId = res.data.id;
             estadoPix.qrCode = res.data.qr_code;
-            estadoPix.amount = res.data.amount || 1772;
+            estadoPix.amount = res.data.amount || 1292;
             
             localStorage.setItem('transacao_atual', JSON.stringify(res.data));
             localStorage.setItem('pix_code', res.data.qr_code);
             localStorage.setItem('pix_txid', res.data.id);
-            localStorage.setItem('pix_valor', '17,72');
+            localStorage.setItem('pix_valor', '12,92');
             
             const inputCodigo = document.getElementById('codigoPix');
             if (inputCodigo) inputCodigo.value = estadoPix.qrCode;
@@ -410,7 +410,7 @@ function irParaConfirmacao() {
                 content_type: 'product',
                 content_name: isUp1 ? 'Verificação de Segurança' : 'Prioridade Premium',
                 content_id: isUp1 ? 'up1' : 'front',
-                value: isUp1 ? 27.72 : 17.72,
+                value: isUp1 ? 27.72 : 12.92,
                 currency: 'BRL'
             });
         } catch(e) {}
