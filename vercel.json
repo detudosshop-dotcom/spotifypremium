@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "routes": [
+    {
+      "src": "/images/(.*)",
+      "dest": "/public/images/$1"
+    },
+    {
+      "src": "/02",
+      "dest": "/02/index.html"
+    },
+    {
+      "src": "/02/",
+      "dest": "/02/index.html"
+    },
+    {
+      "src": "/inicio/02",
+      "dest": "/inicio/02/index.html"
+    },
+    {
+      "src": "/inicio/02/",
+      "dest": "/inicio/02/index.html"
+    },
+    {
+      "handle": "filesystem"
+    }
+  ]
+}
