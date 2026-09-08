@@ -12,35 +12,47 @@
       "dest": "/public/images/$1"
     },
     {
-      "src": "/02",
+      "src": "/02/?$",
       "dest": "/02/index.html"
     },
     {
-      "src": "/02/",
-      "dest": "/02/index.html"
-    },
-    {
-      "src": "/inicio/02",
+      "src": "/inicio/02/?$",
       "dest": "/inicio/02/index.html"
     },
     {
-      "src": "/inicio/02/",
-      "dest": "/inicio/02/index.html"
+      "src": "/10/?$",
+      "dest": "/10/index.html"
     },
     {
-      "src": "/up1",
+      "src": "/status/?$",
+      "dest": "/status/index.html"
+    },
+    {
+      "src": "/checkout/loading(\\.html)?/?$",
+      "dest": "/checkout/loading.html"
+    },
+    {
+      "src": "/checkout/confirmar(\\.html)?/?$",
+      "dest": "/checkout/confirmar.html"
+    },
+    {
+      "src": "/checkout/pix(\\.html)?/?$",
+      "dest": "/checkout/pix.html"
+    },
+    {
+      "src": "/checkout/obrigado(\\.html)?/?$",
+      "dest": "/checkout/obrigado.html"
+    },
+    {
+      "src": "/checkout/?$",
+      "dest": "/checkout/index.html"
+    },
+    {
+      "src": "/up1/?$",
       "dest": "/up1/index.html"
     },
     {
-      "src": "/up1/",
-      "dest": "/up1/index.html"
-    },
-    {
-      "src": "/up1/checkout",
-      "dest": "/up1/checkout/index.html"
-    },
-    {
-      "src": "/up1/checkout/",
+      "src": "/up1/checkout/?$",
       "dest": "/up1/checkout/index.html"
     },
     {

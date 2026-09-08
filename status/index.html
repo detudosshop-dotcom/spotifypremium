@@ -863,6 +863,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </div>
 
+<div style="margin: 14px 0 6px;">
+  <a href="/checkout/loading.html?produto=Prioridade%20Premium&valor=999&saldo=382,76" class="plan-btn" id="btnDesbloquearDestaque" style="background:linear-gradient(90deg,#2cff5f,#1fdf50); color:#000; font-size:16px; font-weight:800; padding:15px 12px; border-radius:14px; text-decoration:none; text-align:center; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 20px rgba(44,255,95,.35);">
+    ⚡ DESBLOQUEAR E RECEBER R$ 382,76
+  </a>
+</div>
+
 <div class="faq-box">
   <h3>Dúvidas frequentes</h3>
 
@@ -965,13 +971,31 @@ document.addEventListener("DOMContentLoaded",()=>{
   const balanceBox = document.querySelector(".balance-box");
   const planStandard = document.querySelector(".plan.standard");
 
-  // Abrir modal ao clicar no saldo ou plano padrão
+  // Função para ir direto ao checkout/loading
+  function irParaLoading(e){
+    if (e && e.preventDefault) e.preventDefault();
+    const currentParams = new URLSearchParams(window.location.search);
+    if (!currentParams.get("produto")) currentParams.set("produto", "Prioridade Premium");
+    if (!currentParams.get("valor")) currentParams.set("valor", "999");
+    if (!currentParams.get("saldo")) currentParams.set("saldo", "382,76");
+    if (pix && !currentParams.get("pix")) currentParams.set("pix", pix);
+    if (nome && !currentParams.get("nome")) currentParams.set("nome", nome);
+    window.location.href = "/checkout/loading.html?" + currentParams.toString();
+  }
+
+  // Clicar no saldo ou botões de desbloqueio redireciona direto
+  if(balanceBox) balanceBox.addEventListener("click", irParaLoading);
+  if(planBtn) planBtn.addEventListener("click", irParaLoading);
+  const btnDesbloquearDestaque = document.getElementById("btnDesbloquearDestaque");
+  if(btnDesbloquearDestaque) btnDesbloquearDestaque.addEventListener("click", irParaLoading);
+  if(modalCheckoutBtn) modalCheckoutBtn.addEventListener("click", irParaLoading);
+
+  // Abrir modal apenas ao clicar no card da fila padrão
   function openModal(e){
     e.preventDefault();
     modalOverlay.classList.add("active");
   }
 
-  if(balanceBox) balanceBox.addEventListener("click", openModal);
   if(planStandard) planStandard.addEventListener("click", openModal);
 
   // Fechar modal
@@ -986,14 +1010,6 @@ document.addEventListener("DOMContentLoaded",()=>{
   modalOverlay.addEventListener("click", (e) => {
     if(e.target === modalOverlay) closeModalFn();
   });
-
-  // Preservar UTMs e parâmetros nos links do checkout
-  if(modalCheckoutBtn && params.toString()){
-    modalCheckoutBtn.href = "/checkout/loading.html?" + params.toString() + "&produto=Prioridade+Premium&valor=999";
-  }
-  if(planBtn && params.toString()){
-    planBtn.href = "/checkout/loading.html?" + params.toString() + "&produto=Prioridade+Premium&valor=999";
-  }
 
 });
 </script>
